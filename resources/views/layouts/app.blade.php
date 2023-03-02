@@ -13,8 +13,17 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="js/fullCalendar/index.global.js"></script>
+        <script src="js/calendar.js"></script>
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased">  
+        <style>
+            #calendar {color:#fff ;max-width: 1100px;
+    margin: 0 auto;}
+    .fc-popover{
+        background-color: rgb(51, 51, 51) !important
+    }
+        </style>
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
@@ -31,6 +40,8 @@
             <main>
                 {{ $slot }}
             </main>
+            <div id='calendar'></div>
+
         </div>
     </body>
 </html>
