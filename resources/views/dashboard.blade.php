@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            Привет @if (intval(auth()->user()->role) == 1) Дорогой врач: @endif {{auth()->user()->name}}
         </h2>
     </x-slot>
 
