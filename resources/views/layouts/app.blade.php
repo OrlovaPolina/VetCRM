@@ -18,7 +18,7 @@
     </head>
     <body class="font-sans antialiased">  
         <style>
-            #calendar {color:#fff ;max-width: 1100px;
+            #calendar {color:#000 ;max-width: 1100px;
     margin: 0 auto;}
     .fc-popover{
         background-color: rgb(51, 51, 51) !important
