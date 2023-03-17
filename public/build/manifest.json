@@ -1,0 +1,22 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-b81c0223.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-9f34e40c.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/calendar.js": {
+    "file": "assets/calendar-2897f427.js",
+    "isEntry": true,
+    "src": "resources/js/calendar.js"
+  },
+  "resources/js/fullCalendar/index.global.js": {
+    "file": "assets/index.global-f16e6e56.js",
+    "isEntry": true,
+    "src": "resources/js/fullCalendar/index.global.js"
+  }
+}
