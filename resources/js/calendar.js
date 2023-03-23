@@ -1,4 +1,4 @@
-
+// import './fullCalendar/index.global';
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');

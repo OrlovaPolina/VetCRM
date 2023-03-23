@@ -1,8 +1,8 @@
 import './bootstrap';
+import * as Popper from '@popperjs/core'
+window.Popper = Popper
 
-import '../sass/app.scss'
-
-import * as bootstrap from 'bootstrap'
+import 'bootstrap' 
 
 import Alpine from 'alpinejs';
 
