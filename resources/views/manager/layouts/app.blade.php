@@ -12,7 +12,12 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/app.js', 'resources/css/app.scss',
+        @vite([
+            'resources/css/app.css',
+            'resources/css/manager.scss',
+            'resources/js/app.js',
+            'resources/js/app.js',
+            'resources/css/app.scss',
            ])
     </head>
     <body class="font-sans antialiased">  
