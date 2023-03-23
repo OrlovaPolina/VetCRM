@@ -6,6 +6,7 @@ export default defineConfig({
         laravel([
             'resources/css/app.css',
             'resources/css/app.scss',
+            'resources/css/manager.scss',
             'resources/js/app.js',
             'resources/js/fullCalendar/index.global.js',
             'resources/js/calendar.js',
