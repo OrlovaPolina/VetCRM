@@ -6,5 +6,9 @@ main{
     top: 0px;
     .users-table{
         top: 150px;
+       
     }
+}
+.custom-tooltip{
+    --bs-tooltip-bg: var(--bs-primary);
 }

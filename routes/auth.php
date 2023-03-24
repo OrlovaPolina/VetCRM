@@ -56,4 +56,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+    Route::get('/manager', function () {
+        return view('manager.dashboard');
+    })->middleware('manager')->name('managerDashboard');
 });
