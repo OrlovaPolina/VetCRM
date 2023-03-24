@@ -18,12 +18,12 @@
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-d09c6c4d.css",
+    "file": "assets/manager-75367162.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
   "resources/js/app.js": {
-    "file": "assets/app-5a2017bf.js",
+    "file": "assets/app-5f5a0101.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

@@ -19,7 +19,22 @@
                 <td class="fs-2">{{$user->id}}</td>
                 <td class="fs-2">{{$user->name}}</td>
                 <td class="fs-2">{{$user->email}}</td>
-                <td class="fs-2 @if(intval($user->role) == 1) text-success @endif"><i class="bi bi-patch-plus-fill"></i> </td>
+                @if(intval($user->role) == 2)
+                <td class="fs-2 text-indigo-600" data-bs-toggle="tooltip" data-bs-placement="top"
+        data-bs-custom-class="custom-tooltip" title="Менеджер">
+                    <i class="bi bi-emoji-sunglasses"></i>
+                </td>
+                @elseif(intval($user->role) == 1)
+                <td class="fs-2 text-success" data-bs-toggle="tooltip" data-bs-placement="top"
+        data-bs-custom-class="custom-tooltip" title="Врач">
+                    <i class="bi bi-star"></i>
+                </td>
+                @else
+                <td class="fs-2" data-bs-toggle="tooltip" data-bs-placement="top"
+        data-bs-custom-class="custom-tooltip" title="Пользователь">
+                    <i class="bi bi-check-circle"></i>
+                </td>
+                @endif
             </tr>          
             @endforeach
             </tbody>
