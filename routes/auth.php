@@ -57,8 +57,43 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-    Route::get('/manager', function () {
-        return view('manager.dashboard');
-    })->middleware('manager')->name('managerDashboard');
-    Route::post('/manager', [ManagerController::class, 'saveUserTable'])->middleware('manager');
+    Route::name('manager.')->group(function () {
+        Route::get('/manager', function () {
+            return view('manager.dashboard')->with(['users'=>null,'search'=>null]);
+        })->middleware('manager')->name('dashboard');
+        /**
+         * Путь до страницы с таблицей пользователей
+         */
+        Route::post('/manager', 
+        [ManagerController::class, 'saveUserTable']
+        )->middleware('manager')->name('saveUsers');
+        /**
+         * Поиск пользователей
+         */
+        Route::post('/manager/search', 
+        [ManagerController::class, 'search']
+        )->middleware('manager')->name('searchUsers');
+        /**
+         * Путь до страницы с расписанием
+         */
+        Route::get('/manager/timetable',
+        function(){
+            return view('manager.timetable');
+        })->middleware('manager')->name('timetable');
+        /**
+         * Путь до страницы с новостями
+         */
+        Route::get('/manager/news',
+        function(){
+            return view('manager.news');
+        })->middleware('manager')->name('news');
+        /**
+         * Путь до страницы с акциями
+         */
+        Route::get('/manager/stock',
+        function(){
+            return view('manager.stock');
+        })->middleware('manager')->name('stock');
+    });
+    
 });

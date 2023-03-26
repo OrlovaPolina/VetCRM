@@ -1,7 +1,42 @@
 @if(isset($users))
-    <div class="users-table d-flex position-absolute top-50 start-50 translate-middle-x">
+    <div class="users-filter d-flex position-relative start-50 translate-middle-x">
+        <form action="/manager/search" method="post" class="d-grid filter-form" >
+        @csrf
+        <div class="container">
+            <div class="row">
+                <div class="col col-2">
+                    <h2>Фильтр</h2>
+                </div>               
+                <div class="col col-2"></div>
+                <div class="col col-4">
+                    <label for="userName" class="form-label">ФИО пользователя</label>
+                    <input type="text" name="filter[userName]" class="form-control" 
+                    @if(isset($search['userName'])) value="{{$search['userName']}}" @endif
+                    placeholder="ФИО пользователя" aria-label="ФИО пользователя">
+                </div>
+                <div class="col col-4">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="text" name="filter[email]" class="form-control"
+                    @if(isset($search['email'])) value="{{$search['email']}}" @endif
+                    placeholder="E-mail" aria-label="E-mail">
+                </div>
+            </div>  
+            <br>
+            <div class="row">
+                <div class="col col-12 d-flex justify-content-end">
+                    @if(isset($search['email']) || isset($search['userName']))
+                    <button type="reset" id="reset" class="btn btn-danger w-30">Сбросить</button>
+                    @endif
+                    <button type="submit" class="btn btn-success w-50">Поиск</button>
+                </div>
+            </div>
+        </div>
+        
+        </form>
+    </div>
+    <div class="users-table d-flex position-relative top-50 start-50 translate-middle-x">
         <form action="" method="post">
-            @csrf
+        @csrf
             <table class="table text-center">
                 <thead>
                     <tr>

@@ -3,10 +3,10 @@
 </svg> -->
 @if (isset(auth()->user()->role))
     @if (intval(auth()->user()->role) == 0)
-    <img src="vetpng.png" id="logoPng" alt="">
+    <img src="/vetpng.png" id="logoPng" alt="">
     @else
-    <img src="vetCRM.png" id="logoPng" alt="">
+    <img src="/vetCRM.png" id="logoPng" alt="">
     @endif
     @else
-    <img src="vetpng.png" id="logoPng" alt="">
+    <img src="/vetpng.png" id="logoPng" alt="">
 @endif
