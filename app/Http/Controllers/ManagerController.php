@@ -37,9 +37,21 @@ class ManagerController extends Controller
 
     }
 
+    public function search(Request $request){
+        $search = $request->filter;
+        $users = null;
+        if(isset($search['email']) && strlen($search['email']) > 2){
+           $users = User::where('email','LIKE','%'. $search['email'] .'%')->get();
+           return view('manager.dashboard')->with(['users'=>json_encode($users),'search'=>$search]);
+        }
+        if(isset($search['userName']) && strlen($search['userName']) > 2){
+            $users = User::where('name','LIKE','%'.$search['userName'].'%')->get();
+            return view('manager.dashboard')->with(['users'=>json_encode($users),'search'=>$search]);
+        }
+        return Redirect::route('manager.dashboard',['error'=>true]);
+    }
+
     public function saveUserTable(Request $request){
-        // echo '<pre>' . print_r($request->users, 1) . '</pre>';
-        // die();
         foreach($request->users as $users){
             if(intval(Auth::user()->id) !== intval($users['id'])){
                 try{
@@ -70,11 +82,11 @@ class ManagerController extends Controller
                 }
                 catch(Exception $e){
                     $error = true;
-                    return Redirect::route('managerDashboard',['error'=>$error]);
+                    return Redirect::route('manager.dashboard',['error'=>$error]);
                 }
             }           
         }  
         $success = true;
-        return Redirect::route('managerDashboard',['success'=>$success]);
+        return Redirect::route('manager.dashboard',['success'=>$success]);
     }
 }

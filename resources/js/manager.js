@@ -25,4 +25,11 @@ $(document).ready(function(){
             }
         }
     })
+
+    $('#reset').click(function () {
+        $('form.filter-form input').each(function(i,e){
+            $(this).val("");
+            location.href = '/manager';
+        })
+    })
 })

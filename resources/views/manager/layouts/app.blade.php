@@ -47,12 +47,14 @@
                     @endif
                 </header>
             @endif
-            <!-- Page Content -->
             <main>
-                <!-- @include('components.manager-forms') -->
-                <x-manager-forms>
-                    
-                </x-manager-forms>
+                <?
+                
+                if(!isset($users) || $users == null){
+                    $users = null;
+                }
+                ?>
+                <x-manager-forms :user="$users" :search="$search"/>
             </main>
         </div>
     </body>
