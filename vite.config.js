@@ -10,6 +10,7 @@ export default defineConfig({
             'resources/js/app.js',
             'resources/js/fullCalendar/index.global.js',
             'resources/js/calendar.js',
+            'resources/js/manager.js',
         ]),
         {
             name: 'blade',
