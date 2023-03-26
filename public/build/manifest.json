@@ -18,12 +18,12 @@
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-75367162.css",
+    "file": "assets/manager-0bf27c47.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
   "resources/js/app.js": {
-    "file": "assets/app-5f5a0101.js",
+    "file": "assets/app-51070789.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -36,5 +36,10 @@
     "file": "assets/index.global-f16e6e56.js",
     "isEntry": true,
     "src": "resources/js/fullCalendar/index.global.js"
+  },
+  "resources/js/manager.js": {
+    "file": "assets/manager-d87a0516.js",
+    "isEntry": true,
+    "src": "resources/js/manager.js"
   }
 }

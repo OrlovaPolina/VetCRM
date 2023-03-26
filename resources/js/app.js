@@ -1,7 +1,8 @@
 import './bootstrap';
 import * as Popper from '@popperjs/core'
 window.Popper = Popper
-
+import jQuery from 'jquery';
+window.$ = jQuery;
 import 'bootstrap' 
 
 import Alpine from 'alpinejs';
