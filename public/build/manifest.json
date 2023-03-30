@@ -13,12 +13,12 @@
     "src": "resources/css/app.css"
   },
   "resources/css/app.scss": {
-    "file": "assets/app-c2ccf604.css",
+    "file": "assets/app-0784d3cb.css",
     "isEntry": true,
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-fc8c336f.css",
+    "file": "assets/manager-cc4aa820.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
@@ -28,7 +28,7 @@
     "src": "resources/js/app.js"
   },
   "resources/js/calendar.js": {
-    "file": "assets/calendar-2897f427.js",
+    "file": "assets/calendar-1c6b81b6.js",
     "isEntry": true,
     "src": "resources/js/calendar.js"
   },

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ru">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,31 +22,22 @@
            ])
     </head>
     <body class="font-sans antialiased">  
-        <style>
-            #logoPng{
-                width: 57px;
-            margin: 10px 0px 0px 10px;
-            }
-        </style>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow mb-100">
-                    <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                    @if(isset($_GET['success']))
-                    <div class="alert alert-info position-absolute" role="alert">
-                        Изменения сохранены!
-                    </div>
-                    @elseif(isset($_GET['error']))
-                    <div class="alert alert-warning position-absolute" role="alert">
-                        Произошла ошибка, обратитесь к разработчикам!
-                    </div>
-                    @endif
-                </header>
-            @endif
+            <header class="bg-white dark:bg-gray-800 shadow mb-100">
+                <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
+                    @include('layouts.manager-nav')
+                </div>
+                @if(isset($_GET['success']))
+                <div class="alert alert-info position-absolute" role="alert">
+                    Изменения сохранены!
+                </div>
+                @elseif(isset($_GET['error']))
+                <div class="alert alert-warning position-absolute" role="alert">
+                    Произошла ошибка, обратитесь к разработчикам!
+                </div>
+                @endif
+            </header>
             <main>
                 <?
                 
