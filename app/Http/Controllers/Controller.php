@@ -9,4 +9,14 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    public function news(){
+        
+    }
+    public function stock(){
+
+    }
+    public function about(){
+
+    }
 }

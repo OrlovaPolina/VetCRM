@@ -35,7 +35,7 @@
         </form>
     </div>
     <div class="users-table d-flex position-relative top-50 start-50 translate-middle-x">
-        <form action="" method="post">
+        <form action="/manager" method="post">
         @csrf
             <table class="table text-center">
                 <thead>
@@ -79,7 +79,7 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" name="users[{{$user->id}}][role]" type="checkbox" 
                             @if(intval($user->role) == 1) checked 
-                            @elseif(intval($user->role) == 2) disabled @endif
+                            @elseif(intval($user->role) == 2 || intval($user->blacklist) == 1) disabled @endif
                             role="switch" >
                         </div>
                     </td>
@@ -87,7 +87,7 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" name="users[{{$user->id}}][blacklist]" type="checkbox" 
                                 @if(intval($user->blacklist) == 1) checked 
-                                @elseif(intval($user->role) == 2) disabled @endif
+                                @elseif(intval($user->role) == 2 || intval($user->role) == 1) disabled @endif
                                 role="switch" >
                         </div>
                     </td>

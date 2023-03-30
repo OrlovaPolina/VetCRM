@@ -21,10 +21,6 @@
         <style>
             #calendar {color:#000 ;max-width: 1100px;
     margin: 0 auto;}
-    #logoPng{
-        width: 57px;
-    margin: 10px 0px 0px 10px;
-    }
     .fc-popover{
         background-color: rgb(51, 51, 51) !important
     }

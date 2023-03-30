@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\UserRoleManager;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
    
 });
 
-
+Route::get('/news',[Controller::class, 'news'])->name('news');
+Route::get('/stock',[Controller::class, 'stock'])->name('stock');
+Route::get('/about',[Controller::class, 'about'])->name('about');
 
 require __DIR__.'/auth.php';
