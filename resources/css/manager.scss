@@ -20,6 +20,12 @@ main{
             cursor: pointer;
         }
     }
+    .images img{
+        width: 60px !important;
+    }
+    .input-group{
+        max-width: 400px;
+    }
 }
 header{
     margin-bottom: 100px;
