@@ -8,7 +8,7 @@
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-f79b8213.css",
+    "file": "assets/app-cf400264.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -18,7 +18,7 @@
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-cc4aa820.css",
+    "file": "assets/manager-99f7993c.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
@@ -38,7 +38,7 @@
     "src": "resources/js/fullCalendar/index.global.js"
   },
   "resources/js/manager.js": {
-    "file": "assets/manager-a7132e13.js",
+    "file": "assets/manager-4d5ab903.js",
     "isEntry": true,
     "src": "resources/js/manager.js"
   }

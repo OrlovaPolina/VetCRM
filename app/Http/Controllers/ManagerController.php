@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
+use App\Models\Stocks;
 use App\Models\User;
+use DateTime;
 use Exception;
 use Illuminate\Foundation\Auth\User as AuthUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class ManagerController extends Controller
 {
@@ -20,22 +25,12 @@ class ManagerController extends Controller
         0 => 'off',
         1 => 'on'
     ];
-    /**
-     * Класс отвечает за изменения бд через Web интерфейс
-     */
+    protected const TYPE_CONTENT = [
+        0 => 'news',
+        1 => 'stocks'
+    ];
 
-    /**
-     * Создание нового врача в бд 
-     * 
-     * 
-     *  */ 
-    public function createDoctor(Request $request){
-        
-    }
-
-    public function deleteDoctor(Request $request){
-
-    }
+    private const UPLOAD_DIR = 'uploads/news/';
 
     public function search(Request $request){
         $search = $request->filter;
@@ -88,5 +83,88 @@ class ManagerController extends Controller
         }  
         $success = true;
         return Redirect::route('manager.dashboard',['success'=>$success]);
+    }
+
+    public function createNewsAndStocks(Request $request){
+        $fields = $request->all();
+        $type = intval($fields['type']);
+        $imgUrls = NULL;
+        
+        foreach($fields as $field){
+            $field = preg_replace('/(RENAME)|(rename)|(DROP)|(drop)|(CREATE)|(create)|(DELETE)|(delete)/','',$field);
+        }
+        if ($request->images){
+            $imgUrls = [];
+            foreach($request->file('images') as $key=>$img){
+                if($img !== null){
+                    $name = $img->getClientOriginalName();                    
+                    $path = self::UPLOAD_DIR . time() . '-' . $name;
+                    $img = $request->file('images')[$key]->storeAs('public',$path);
+                    $imgUrls[$key] = 'storage/' . $path;
+                }
+            }
+        }
+        // echo '<pre>' . print_r($imgUrls, 1) . '</pre>';
+        // die();
+        if($type == 0){//Новости
+            News::create([
+                'title' => $fields['title'],
+                'content' => $fields['content'],
+                'images_urls' => json_encode($imgUrls),
+                'created_at' => new DateTime('now')
+            ]);
+            
+
+        }
+        elseif($type == 1){//Акции
+            Stocks::create([
+                'title' => $fields['title'],
+                'content' => $fields['content'],                        
+                'images_urls' => json_encode($imgUrls),        
+                'created_at' => new DateTime('now')
+            ]);
+        }
+        $returnUrl = '/manager/news?type=' .( $type == 1 ? 'stocks': 'news');
+        return redirect($returnUrl,301);
+    }
+
+    public function editNewsStocks($type,$id){
+
+    }
+
+    public function deleteNewsStocks($type,$id){
+        if($type == 'stocks'){
+            $error = false;
+            try{
+                Stocks::find($id)->delete();
+            }
+            catch(Exception $e){
+                $error = true;
+            }
+            return redirect('manager/news?type=stocks',301)->with(['error'=>$error]);
+        }
+        elseif($type == 'news'){
+            $error = false;
+            try{
+            News::find($id)->delete();
+            }
+            catch(Exception $e){
+                $error = true;
+            }
+            return redirect('manager/news?type=news',301)->with(['error'=>$error]);
+        }
+       
+    }
+    
+    function restoreNewsStocks($type,$id)
+    {
+        if($type == 'stocks'){
+            Stocks::withTrashed()->find($id)->restore();
+            return redirect('manager/news?type=stocks',301);
+        }
+        elseif($type == 'news'){
+            News::withTrashed()->find($id)->restore();
+            return redirect('manager/news?type=news',301);
+        }
     }
 }

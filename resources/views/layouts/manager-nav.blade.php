@@ -9,9 +9,6 @@
         <a class="nav-link" href="/manager/timetable">Расписание</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/manager/news">Новости</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/manager/stock">Акции</a>
+        <a class="nav-link" href="/manager/news">Новости/Акции</a>
     </li>
 </ul>

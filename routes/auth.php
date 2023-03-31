@@ -88,12 +88,28 @@ Route::middleware('auth')->group(function () {
             return view('manager.news');
         })->middleware('manager')->name('news');
         /**
-         * Путь до страницы с акциями
+         * Создание новостей и акций
+         * 
          */
-        Route::get('/manager/stock',
+        Route::get('/manager/news/create',
         function(){
-            return view('manager.stock');
-        })->middleware('manager')->name('stock');
+            return view('manager.news-create');
+        })->middleware('manager')->name('newsCreate');
+        Route::post('/manager/news',[ManagerController::class,'createNewsAndStocks'])->middleware('manager')->name('newsStocks');
+
+        /** 
+         * Изменение новостей и акций
+         */
+        Route::get('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocksPage'])->middleware('manager')->name('editNewsStocksPage');
+        Route::post('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocks'])->middleware('manager')->name('editNewsStocks');
+        /**
+         * Отключение новостей и акций
+         */
+        Route::post('/manager/{type}/delete/{id}',[ManagerController::class,'deleteNewsStocks'])->middleware('manager')->name('deleteNewsStocks');
+        /**
+         * Отключение новостей и акций
+         */
+        Route::post('/manager/{type}/restore/{id}',[ManagerController::class,'restoreNewsStocks'])->middleware('manager')->name('restoreNewsStocks');
     });
     
 });
