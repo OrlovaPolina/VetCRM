@@ -26,7 +26,7 @@
                     @endif
                     </td>
                     <td>
-                        <a href="/manager/news/create/{{$new->id}}">Изменить</a>
+                        <a href="{{route('manager.editNewsStocksPage',['type'=>'news','id'=>$new->id])}}">Изменить</a>
                     </td>
                     <td>
                         @if($new->deleted_at != null)
