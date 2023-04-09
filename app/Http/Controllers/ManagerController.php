@@ -29,6 +29,12 @@ class ManagerController extends Controller
         0 => 'news',
         1 => 'stocks'
     ];
+    protected const TYPE_CLASS = [
+        'news' => News::class,
+        'stocks' => Stocks::class,
+        0 => News::class,
+        1 => Stocks::class,
+    ];
 
     private const UPLOAD_DIR = 'uploads/news/';
 
@@ -104,67 +110,105 @@ class ManagerController extends Controller
                 }
             }
         }
-        // echo '<pre>' . print_r($imgUrls, 1) . '</pre>';
-        // die();
-        if($type == 0){//Новости
-            News::create([
-                'title' => $fields['title'],
-                'content' => $fields['content'],
-                'images_urls' => json_encode($imgUrls),
-                'created_at' => new DateTime('now')
-            ]);
-            
+        //создание новости/акции
+        self::TYPE_CLASS[$type]::create([
+            'title' => $fields['title'],
+            'content' => $fields['content'],
+            'images_urls' => json_encode($imgUrls),
+            'created_at' => new DateTime('now')
+        ]);           
 
-        }
-        elseif($type == 1){//Акции
-            Stocks::create([
-                'title' => $fields['title'],
-                'content' => $fields['content'],                        
-                'images_urls' => json_encode($imgUrls),        
-                'created_at' => new DateTime('now')
-            ]);
-        }
         $returnUrl = '/manager/news?type=' .( $type == 1 ? 'stocks': 'news');
         return redirect($returnUrl,301);
     }
 
-    public function editNewsStocks($type,$id){
+    public function editNewsStocksPage($type,$id){
+        $content = self::TYPE_CLASS[$type]::find($id)->get()->first();
+        $content->images_urls = json_decode($content->images_urls);
+        return view('manager.edit')->with(['content'=>$content,'type'=>$type]);
+    }
 
+    public function editNewsStocks(Request $request){
+        $fields = $request->all();
+        $type = intval($fields['type']);
+        $imgUrls = NULL;
+        $content = self::TYPE_CLASS[$type]::find($fields['id'])->get()->first();
+
+        foreach($fields as $field){
+            $field = preg_replace('/(RENAME)|(rename)|(DROP)|(drop)|(CREATE)|(create)|(DELETE)|(delete)/','',$field);
+        }
+        $oldImg = $content->toArray();
+        $oldImg = json_decode($oldImg['images_urls']);
+        
+        try{
+        if ($request->images){
+            $imgUrls = [];
+            foreach($request->file('images') as $key=>$img){
+                if($img !== null){
+                    $name = $img->getClientOriginalName();                    
+                    $path = self::UPLOAD_DIR . time() . '-' . $name;
+                    if(!is_file('storage/uploads/news/'.$name)){
+                        $img = $request->file('images')[$key]->storeAs('public',$path);
+                        $imgUrls[$key] = 'storage/' . $path;
+                    }
+                    else
+                        $imgUrls[$key] = 'storage/uploads/news/'.$name;
+
+                }
+            }
+        }
+        }
+        catch(Exception $e){
+            return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?error=true');
+        } 
+        
+        try{
+            self::removeImages($fields['type'],$fields['id'],$imgUrls);
+            
+            foreach($content->toArray() as $key=>$item){
+                if(in_array($key,['title','content']))
+                $content->$key = $fields[$key];
+                elseif($key == 'images_urls')
+                $content->$key = json_encode($imgUrls); 
+            }
+            $content->save();
+        }  
+        catch(Exception $e){
+            return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?error=true');
+        } 
+
+        return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?success=true');
+    }
+
+
+    private function removeImages($type,$id,$newImg){
+        $content = self::TYPE_CLASS[$type]::find($id)->get()->first();
+        $content->images_urls = json_decode($content->images_urls);
+        foreach($content->images_urls as $img){
+            $name = preg_split('/\//',$img);
+            $name = $name[count($name) - 1];
+            if(is_file($img)){
+                if(!in_array($img,$newImg))
+                unlink(storage_path('app/public/uploads/news/'.$name));   
+                
+            }
+        }
     }
 
     public function deleteNewsStocks($type,$id){
-        if($type == 'stocks'){
-            $error = false;
-            try{
-                Stocks::find($id)->delete();
-            }
-            catch(Exception $e){
-                $error = true;
-            }
-            return redirect('manager/news?type=stocks',301)->with(['error'=>$error]);
+        $error = false;
+        try{
+            self::TYPE_CLASS[$type]::find($id)->delete();            
         }
-        elseif($type == 'news'){
-            $error = false;
-            try{
-            News::find($id)->delete();
-            }
-            catch(Exception $e){
-                $error = true;
-            }
-            return redirect('manager/news?type=news',301)->with(['error'=>$error]);
+        catch(Exception $e){
+            $error = true;
         }
-       
+        return redirect('manager/news?type='.$type,301)->with(['error'=>$error]);
     }
     
     function restoreNewsStocks($type,$id)
     {
-        if($type == 'stocks'){
-            Stocks::withTrashed()->find($id)->restore();
-            return redirect('manager/news?type=stocks',301);
-        }
-        elseif($type == 'news'){
-            News::withTrashed()->find($id)->restore();
-            return redirect('manager/news?type=news',301);
-        }
+            self::TYPE_CLASS[$type]::withTrashed()->find($id)->restore();
+            return redirect('manager/news?type='.$type,301);
     }
 }

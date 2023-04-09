@@ -33,6 +33,17 @@ $(document).ready(function(){
         })
     })
 
+    $('.image').each(function () {
+        if($(this).attr('value')){
+            let name = $(this).attr('value').split(/\//);
+            name = name[name.length - 1];
+            let file = new File([$(this).attr('value')], name,{type:"image/png, image/gif, image/jpeg, image/jpg", lastModified:new Date().getTime()});
+            let container = new DataTransfer();
+            container.items.add(file);
+            $(this).prop('files',container.files);
+        }
+      })
+
     $(document).on('change','.images .image:not(:last-child)',function(){  
         let count = parseInt($(this).prop('name').split(/(\[)|(\])/)[3]);  
         setPreview(count);
