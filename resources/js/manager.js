@@ -15,7 +15,8 @@ $(document).ready(function(){
     }
 
     let current_link = location.pathname;
-    $('.nav-link').each(function(index,element){
+
+    $('.nav-link').each(function(i,e){
         if($(this).attr('href') == current_link){
             $(this).addClass('active').attr('aria-current','page');
         }
@@ -45,30 +46,42 @@ $(document).ready(function(){
       })
 
     $(document).on('change','.images .image:not(:last-child)',function(){  
-        let count = parseInt($(this).prop('name').split(/(\[)|(\])/)[3]);  
-        setPreview(count);
-
-        let countImages = $('input.image').length;
-        console.log('количество = '+countImages);
-        console.log('номер текущего = '+count);
-        if(countImages < 2 )
-        {
-            dublicateFileBlock(0)
-        }
-        else if((count  + 1) == (countImages)){
-            dublicateFileBlock(count)
-        }
-        
+        changeImagesBlocks($(this));        
     });    
+
+    $(document).on('click','#images > div > i',function(){
+        if($('input.image').length > 1){
+            removeFileBlock($(this).parent());
+            changeCounterFileBlocks();
+        }
+    })
 })
+
+function changeImagesBlocks(currenImg){
+    let count = parseInt(currenImg.prop('name').split(/(\[)|(\])/)[3]);  
+    setPreview(count);
+    let countImages = $('input.image').length;
+    if(countImages < 2 )
+    {
+        dublicateFileBlock(0)
+    }
+    else if((count  + 1) == (countImages)){
+        dublicateFileBlock(count)
+    }
+}
 
 function dublicateFileBlock(count){
     count = count + 1;
     let newImage = '<div class="input-group">'+
     '<input type="file" name="images['+count+']" class="image" aaccept="image/png, image/gif, image/jpeg, image/jpg">'+
     '<img src="preview-image.png" id="image-'+count+'" alt="Preview">'+
+    '<i class="bi bi-x-circle-fill"></i>'+
     '</div>';
     $('#images').append(newImage);
+}
+
+function removeFileBlock(currentBlock) {
+    currentBlock.remove();
 }
 
 function setPreview(count){
@@ -77,4 +90,10 @@ function setPreview(count){
     if (file) {
       $('img#image-'+count).prop('src',URL.createObjectURL(file));
     }
+}
+function changeCounterFileBlocks() {
+    $('.images>.input-group').each(function (index) {
+        $(this).children('input').attr('name','images['+index+']');
+        $(this).children('img').attr('id','image-'+index);
+    })
 }

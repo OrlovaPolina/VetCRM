@@ -4,8 +4,10 @@ namespace App\View\Components;
 
 use App\Models\News;
 use Closure;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+
 
 class ManagerNewsList extends Component
 {
@@ -15,7 +17,7 @@ class ManagerNewsList extends Component
      */
     public function __construct()
     {
-        $this->news = News::withTrashed()->get();
+        $this->news = News::withTrashed()->paginate(20)->withQueryString();
     }
 
     /**

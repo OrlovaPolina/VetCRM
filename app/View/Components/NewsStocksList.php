@@ -2,20 +2,20 @@
 
 namespace App\View\Components;
 
-use App\Models\Stocks;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ManagerStocksList extends Component
+class NewsStocksList extends Component
 {
-    protected $stocks;
+    public $content,$type;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($content,$type)
     {
-        $this->stocks = Stocks::withTrashed()->paginate(20)->withQueryString();
+        $this->content = $content;
+        $this->type = $type;
     }
 
     /**
@@ -23,7 +23,6 @@ class ManagerStocksList extends Component
      */
     public function render(): View|Closure|string
     {
-        
-        return view('manager.components.manager-stocks-list')->with(['stocks' => $this->stocks]);
+        return view('components.news-stocks-list')->with(['content'=>$this->content,'type'=>$this->type]);
     }
 }

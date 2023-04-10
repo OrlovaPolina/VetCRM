@@ -13,14 +13,19 @@
     "src": "resources/css/app.css"
   },
   "resources/css/app.scss": {
-    "file": "assets/app-0784d3cb.css",
+    "file": "assets/app-eceb0df6.css",
     "isEntry": true,
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-99f7993c.css",
+    "file": "assets/manager-79795a42.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
+  },
+  "resources/css/public.scss": {
+    "file": "assets/public-c0e64df0.css",
+    "isEntry": true,
+    "src": "resources/css/public.scss"
   },
   "resources/js/app.js": {
     "file": "assets/app-51070789.js",
@@ -38,7 +43,7 @@
     "src": "resources/js/fullCalendar/index.global.js"
   },
   "resources/js/manager.js": {
-    "file": "assets/manager-5f0934cc.js",
+    "file": "assets/manager-149e9079.js",
     "isEntry": true,
     "src": "resources/js/manager.js"
   }

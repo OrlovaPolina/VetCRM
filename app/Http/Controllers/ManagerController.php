@@ -56,7 +56,7 @@ class ManagerController extends Controller
         foreach($request->users as $users){
             if(intval(Auth::user()->id) !== intval($users['id'])){
                 try{
-                    $user = User::find($users['id']);
+                    $user = User::find('id',$users['id']);
                     if(isset($users['role']) && $users['role'] == 'on'){
                         if(self::ROLE_SWITCH[intval($user->role)] != $users['role']){
                             $user->role = '1';
@@ -100,22 +100,15 @@ class ManagerController extends Controller
             $field = preg_replace('/(RENAME)|(rename)|(DROP)|(drop)|(CREATE)|(create)|(DELETE)|(delete)/','',$field);
         }
         if ($request->images){
-            $imgUrls = [];
-            foreach($request->file('images') as $key=>$img){
-                if($img !== null){
-                    $name = $img->getClientOriginalName();                    
-                    $path = self::UPLOAD_DIR . time() . '-' . $name;
-                    $img = $request->file('images')[$key]->storeAs('public',$path);
-                    $imgUrls[$key] = 'storage/' . $path;
-                }
-            }
+            $imgUrls = self::saveImageToStorage($request);
         }
         //создание новости/акции
         self::TYPE_CLASS[$type]::create([
             'title' => $fields['title'],
             'content' => $fields['content'],
             'images_urls' => json_encode($imgUrls),
-            'created_at' => new DateTime('now')
+            'created_at' => new DateTime('now'),
+            'active_to' => !empty($fields['active_to'])?$fields['active_to']:NULL
         ]);           
 
         $returnUrl = '/manager/news?type=' .( $type == 1 ? 'stocks': 'news');
@@ -123,7 +116,7 @@ class ManagerController extends Controller
     }
 
     public function editNewsStocksPage($type,$id){
-        $content = self::TYPE_CLASS[$type]::find($id)->get()->first();
+        $content = self::TYPE_CLASS[$type]::where('id',$id)->get()->first();
         $content->images_urls = json_decode($content->images_urls);
         return view('manager.edit')->with(['content'=>$content,'type'=>$type]);
     }
@@ -132,7 +125,7 @@ class ManagerController extends Controller
         $fields = $request->all();
         $type = intval($fields['type']);
         $imgUrls = NULL;
-        $content = self::TYPE_CLASS[$type]::find($fields['id'])->get()->first();
+        $content = self::TYPE_CLASS[$type]::where('id',$fields['id'])->get()->first();
 
         foreach($fields as $field){
             $field = preg_replace('/(RENAME)|(rename)|(DROP)|(drop)|(CREATE)|(create)|(DELETE)|(delete)/','',$field);
@@ -142,32 +135,19 @@ class ManagerController extends Controller
         
         try{
         if ($request->images){
-            $imgUrls = [];
-            foreach($request->file('images') as $key=>$img){
-                if($img !== null){
-                    $name = $img->getClientOriginalName();                    
-                    $path = self::UPLOAD_DIR . time() . '-' . $name;
-                    if(!is_file('storage/uploads/news/'.$name)){
-                        $img = $request->file('images')[$key]->storeAs('public',$path);
-                        $imgUrls[$key] = 'storage/' . $path;
-                    }
-                    else
-                        $imgUrls[$key] = 'storage/uploads/news/'.$name;
-
-                }
-            }
+            $imgUrls = self::saveImageToStorage($request);           
         }
         }
         catch(Exception $e){
             return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?error=true');
         } 
-        
+
         try{
             self::removeImages($fields['type'],$fields['id'],$imgUrls);
             
             foreach($content->toArray() as $key=>$item){
-                if(in_array($key,['title','content']))
-                $content->$key = $fields[$key];
+                if(in_array($key,['title','content','active_to']))
+                $content->$key = !empty($fields[$key])?$fields[$key]:NULL;
                 elseif($key == 'images_urls')
                 $content->$key = json_encode($imgUrls); 
             }
@@ -180,9 +160,25 @@ class ManagerController extends Controller
         return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?success=true');
     }
 
+    private function saveImageToStorage($request){
+        $imgUrls = [];
+        foreach($request->file('images') as $key=>$img){
+            if($img !== null){
+                $name = $img->getClientOriginalName();                    
+                $path = self::UPLOAD_DIR . time() . '-' . $name;
+                if(!is_file('storage/uploads/news/'.$name)){
+                    $img = $request->file('images')[$key]->storeAs('public',$path);
+                    $imgUrls[$key] = 'storage/' . $path;
+                }
+                else
+                    $imgUrls[$key] = 'storage/uploads/news/'.$name;
+            }
+        }
+        return $imgUrls;
+    }
 
     private function removeImages($type,$id,$newImg){
-        $content = self::TYPE_CLASS[$type]::find($id)->get()->first();
+        $content = self::TYPE_CLASS[$type]::where('id',$id)->get()->first();
         $content->images_urls = json_decode($content->images_urls);
         foreach($content->images_urls as $img){
             $name = preg_split('/\//',$img);
@@ -198,7 +194,7 @@ class ManagerController extends Controller
     public function deleteNewsStocks($type,$id){
         $error = false;
         try{
-            self::TYPE_CLASS[$type]::find($id)->delete();            
+            self::TYPE_CLASS[$type]::where('id',$id)->delete();            
         }
         catch(Exception $e){
             $error = true;
@@ -208,7 +204,7 @@ class ManagerController extends Controller
     
     function restoreNewsStocks($type,$id)
     {
-            self::TYPE_CLASS[$type]::withTrashed()->find($id)->restore();
+            self::TYPE_CLASS[$type]::withTrashed()->where('id',$id)->restore();
             return redirect('manager/news?type='.$type,301);
     }
 }
