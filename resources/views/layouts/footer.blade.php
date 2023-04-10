@@ -11,7 +11,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('stock')}}" class="nav-link">
+                <a href="{{route('stocks')}}" class="nav-link">
                     Акции
                 </a>
             </li>

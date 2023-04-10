@@ -5,23 +5,48 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
-
+               
                 <!-- Navigation Links -->
                 @if (isset(auth()->user()->role))
-                            @if(intval(auth()->user()->role) != 2)
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        Личный кабинет
-                    </x-nav-link>
-                </div>
-                @endif
+                    @if(intval(auth()->user()->role) != 2)
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                                Личный кабинет
+                            </x-nav-link>
+                        </div>
+                    @endif
                 @endif
             </div>
-
+            @if(!strpos('manager',Route::currentRouteName()))
+                    <ul class="nav">
+                        @if(Route::currentRouteName() !== 'home')
+                            <li class="nav-item">
+                                <a href="{{route('home')}}" class="nav-link">
+                                    Главная
+                                </a>
+                            </li>
+                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('news')}}">
+                                Новости
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('stocks')}}">
+                                Акции
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('about')}}">
+                                О нас
+                            </a>
+                        </li>
+                    </ul>
+                @endif
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">

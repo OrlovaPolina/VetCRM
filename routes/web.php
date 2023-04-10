@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\URL;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 
 
@@ -37,7 +37,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/news',[Controller::class, 'news'])->name('news');
-Route::get('/stock',[Controller::class, 'stock'])->name('stock');
+Route::get('/stocks',[Controller::class, 'stocks'])->name('stocks');
+Route::get('/detail/{type}/{id}',[Controller::class, 'detail'])->name('NSdetail');
 Route::get('/about',[Controller::class, 'about'])->name('about');
 
 Route::get('/test',function(){
