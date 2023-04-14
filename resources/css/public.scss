@@ -1,4 +1,17 @@
 main{
+    #carouselIndicators{
+        width: 70vw;
+        height: 477px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .unicImg{
+        width:50vw;        
+        height: 477px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
     .container{
         >.row{
             width: 100%;

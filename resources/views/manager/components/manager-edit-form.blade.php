@@ -2,10 +2,6 @@
   <div class="input-group mb-3">
     <h2>Изменение публикации</h2>
   </div>
-
-  <?
-//   echo '<pre>' . print_r($content, 1) . '</pre>';die();
-  ?>
     <form enctype="multipart/form-data" class="container-fluid"
     action="{{route('manager.editNewsStocks',['type'=>$type,'id'=>$content->id])}}" method="post">
     @csrf
@@ -53,6 +49,27 @@
         <span class="input-group-text" id="active_to">Активен до</span>
         <input type="datetime-local" name="active_to" id="active_to" 
        aria-describedby="active_to" value="{{$content->active_to}}">
+    </div>
+    <div class="form-floating input-group mb-3">
+        <div class="form-check form-switch">
+          <input class="form-check-input" 
+          name="deleted_at"
+          type="checkbox"
+          role="switch"
+          id="deleted_at" 
+          @if(!is_null($content->deleted_at))
+          checked
+          @endif
+          >
+          <label class="form-check-label" for="deleted_at">
+          @if(!is_null($content->deleted_at))
+          Отключен
+          @else
+          Включен
+          @endif
+
+          </label>
+        </div>
     </div>
     
     <div class="input-group mb-3">

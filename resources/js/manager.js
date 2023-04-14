@@ -14,7 +14,7 @@ $(document).ready(function(){
         },1500)
     }
 
-    let current_link = location.pathname;
+    let current_link = location.pathname + location.search;
 
     $('.nav-link').each(function(i,e){
         if($(this).attr('href') == current_link){
