@@ -116,7 +116,7 @@ class ManagerController extends Controller
     }
 
     public function editNewsStocksPage($type,$id){
-        $content = self::TYPE_CLASS[$type]::where('id',$id)->get()->first();
+        $content = self::TYPE_CLASS[$type]::withTrashed()->where('id',$id)->get()->first();
         $content->images_urls = json_decode($content->images_urls);
         return view('manager.edit')->with(['content'=>$content,'type'=>$type]);
     }
@@ -125,8 +125,8 @@ class ManagerController extends Controller
         $fields = $request->all();
         $type = intval($fields['type']);
         $imgUrls = NULL;
-        $content = self::TYPE_CLASS[$type]::where('id',$fields['id'])->get()->first();
-
+        $content = self::TYPE_CLASS[$type]::withTrashed()->where('id',$fields['id'])->get()->first();
+        
         foreach($fields as $field){
             $field = preg_replace('/(RENAME)|(rename)|(DROP)|(drop)|(CREATE)|(create)|(DELETE)|(delete)/','',$field);
         }
@@ -134,9 +134,9 @@ class ManagerController extends Controller
         $oldImg = json_decode($oldImg['images_urls']);
         
         try{
-        if ($request->images){
-            $imgUrls = self::saveImageToStorage($request);           
-        }
+            if ($request->images){
+                $imgUrls = self::saveImageToStorage($request);           
+            }
         }
         catch(Exception $e){
             return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?error=true');
@@ -149,9 +149,16 @@ class ManagerController extends Controller
                 if(in_array($key,['title','content','active_to']))
                 $content->$key = !empty($fields[$key])?$fields[$key]:NULL;
                 elseif($key == 'images_urls')
-                $content->$key = json_encode($imgUrls); 
+                $content->$key = json_encode($imgUrls);
             }
             $content->save();
+            
+            if(isset($fields['deleted_at']) && $fields['deleted_at'] === 'on'){
+                self::TYPE_CLASS[$type]::where('id',$fields['id'])->delete();
+            }
+            if(!isset($fields['deleted_at'])){
+                self::TYPE_CLASS[$type]::withTrashed()->where('id',$fields['id'])->restore();
+            }
         }  
         catch(Exception $e){
             return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?error=true');
@@ -178,7 +185,7 @@ class ManagerController extends Controller
     }
 
     private function removeImages($type,$id,$newImg){
-        $content = self::TYPE_CLASS[$type]::where('id',$id)->get()->first();
+        $content = self::TYPE_CLASS[$type]::withTrashed()->where('id',$id)->get()->first();
         $content->images_urls = json_decode($content->images_urls);
         foreach($content->images_urls as $img){
             $name = preg_split('/\//',$img);
@@ -186,7 +193,6 @@ class ManagerController extends Controller
             if(is_file($img)){
                 if(!in_array($img,$newImg))
                 unlink(storage_path('app/public/uploads/news/'.$name));   
-                
             }
         }
     }
@@ -202,7 +208,7 @@ class ManagerController extends Controller
         return redirect('manager/news?type='.$type,301)->with(['error'=>$error]);
     }
     
-    function restoreNewsStocks($type,$id)
+    public function restoreNewsStocks($type,$id)
     {
             self::TYPE_CLASS[$type]::withTrashed()->where('id',$id)->restore();
             return redirect('manager/news?type='.$type,301);

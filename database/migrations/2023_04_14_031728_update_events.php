@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::table('news', function (Blueprint $table) {
-        //     $table->timestamp('deleted_at')->nullable();
-        // });
-        
+        Schema::table('events', function(Blueprint $table){
+            $table->foreignId('user_id');
+            $table->foreignId('doctor_id');
+            $table->foreign('doctor_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
     }
 
     /**
