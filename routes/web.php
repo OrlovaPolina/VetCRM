@@ -4,7 +4,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\UserRoleManager;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
@@ -18,6 +17,7 @@ use Illuminate\Support\Facades\URL;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,7 +42,9 @@ Route::get('/detail/{type}/{id}',[Controller::class, 'detail'])->name('NSdetail'
 Route::get('/about',[Controller::class, 'about'])->name('about');
 
 Route::get('/test',function(){
-   echo "<img src=\"".asset('storage\uploads\news\1680231697-vetpng.png') ."\">";
+   echo '<pre>' . print_r(Config::getAll(2), 1) . '</pre>';
 });
+
+
 
 require __DIR__.'/auth.php';

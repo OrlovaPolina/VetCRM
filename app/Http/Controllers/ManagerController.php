@@ -56,7 +56,7 @@ class ManagerController extends Controller
         foreach($request->users as $users){
             if(intval(Auth::user()->id) !== intval($users['id'])){
                 try{
-                    $user = User::find('id',$users['id']);
+                    $user = User::where('id',$users['id'])->get()->first();
                     if(isset($users['role']) && $users['role'] == 'on'){
                         if(self::ROLE_SWITCH[intval($user->role)] != $users['role']){
                             $user->role = '1';
@@ -83,6 +83,7 @@ class ManagerController extends Controller
                 }
                 catch(Exception $e){
                     $error = true;
+                    echo '<pre>'.print_r($e->getMessage(),1).'</pre>';die();
                     return Redirect::route('manager.dashboard',['error'=>$error]);
                 }
             }           
