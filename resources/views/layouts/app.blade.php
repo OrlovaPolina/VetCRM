@@ -12,18 +12,15 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
+        @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/app.js', 'resources/css/app.scss',
+            'resources/js/calendar.js'])
         <script src="js/fullCalendar/index.global.js"></script>
-        <script src="js/calendar.js"></script>
     </head>
     <body class="font-sans antialiased">  
         <style>
             #calendar {color:#000 ;max-width: 1100px;
     margin: 0 auto;}
-    #logoPng{
-        width: 57px;
-    margin: 10px 0px 0px 10px;
-    }
     .fc-popover{
         background-color: rgb(51, 51, 51) !important
     }

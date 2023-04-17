@@ -1,16 +1,39 @@
 {
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
+    "file": "assets/bootstrap-icons-c6569d46.woff",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
+    "file": "assets/bootstrap-icons-966620f9.woff2",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-b81c0223.css",
+    "file": "assets/app-cf400264.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/css/app.scss": {
+    "file": "assets/app-eceb0df6.css",
+    "isEntry": true,
+    "src": "resources/css/app.scss"
+  },
+  "resources/css/manager.scss": {
+    "file": "assets/manager-79795a42.css",
+    "isEntry": true,
+    "src": "resources/css/manager.scss"
+  },
+  "resources/css/public.scss": {
+    "file": "assets/public-9cc78454.css",
+    "isEntry": true,
+    "src": "resources/css/public.scss"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-9f34e40c.js",
+    "file": "assets/app-51070789.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/calendar.js": {
-    "file": "assets/calendar-2897f427.js",
+    "file": "assets/calendar-1c6b81b6.js",
     "isEntry": true,
     "src": "resources/js/calendar.js"
   },
@@ -18,5 +41,10 @@
     "file": "assets/index.global-f16e6e56.js",
     "isEntry": true,
     "src": "resources/js/fullCalendar/index.global.js"
+  },
+  "resources/js/manager.js": {
+    "file": "assets/manager-8a88d045.js",
+    "isEntry": true,
+    "src": "resources/js/manager.js"
   }
 }

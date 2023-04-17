@@ -1,4 +1,4 @@
-
+// import './fullCalendar/index.global';
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -41,6 +41,19 @@ document.addEventListener('DOMContentLoaded', function() {
           title: 'Long Event',
           start: '2023-01-07',
           end: '2023-01-10'
+        },
+        {
+          title: ' Event 1',
+          start: '2023-03-28T16:00:00'
+        },
+        {
+          title: ' Event 2',
+          start: '2023-03-28T16:00:00'
+        },
+        {
+          groupId: 999,
+          title: 'Repeating Event',
+          start: '2023-01-09T16:00:00'
         },
         {
           groupId: 999,
