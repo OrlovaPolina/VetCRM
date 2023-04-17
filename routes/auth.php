@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -56,4 +57,59 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+    Route::name('manager.')->group(function () {
+        Route::get('/manager', function () {
+            return view('manager.dashboard')->with(['users'=>null,'search'=>null]);
+        })->middleware('manager')->name('dashboard');
+        /**
+         * Путь до страницы с таблицей пользователей
+         */
+        Route::post('/manager', 
+        [ManagerController::class, 'saveUserTable']
+        )->middleware('manager')->name('saveUsers');
+        /**
+         * Поиск пользователей
+         */
+        Route::post('/manager/search', 
+        [ManagerController::class, 'search']
+        )->middleware('manager')->name('searchUsers');
+        /**
+         * Путь до страницы с расписанием
+         */
+        Route::get('/manager/timetable',
+        function(){
+            return view('manager.timetable');
+        })->middleware('manager')->name('timetable');
+        /**
+         * Путь до страницы с новостями
+         */
+        Route::get('/manager/news',
+        function(){
+            return view('manager.news');
+        })->middleware('manager')->name('news');
+        /**
+         * Создание новостей и акций
+         * 
+         */
+        Route::get('/manager/news/create',
+        function(){
+            return view('manager.news-create');
+        })->middleware('manager')->name('newsCreate');
+        Route::post('/manager/news',[ManagerController::class,'createNewsAndStocks'])->middleware('manager')->name('newsStocks');
+
+        /** 
+         * Изменение новостей и акций
+         */
+        Route::get('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocksPage'])->middleware('manager')->name('editNewsStocksPage');
+        Route::post('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocks'])->middleware('manager')->name('editNewsStocks');
+        /**
+         * Отключение новостей и акций
+         */
+        Route::post('/manager/{type}/delete/{id}',[ManagerController::class,'deleteNewsStocks'])->middleware('manager')->name('deleteNewsStocks');
+        /**
+         * Отключение новостей и акций
+         */
+        Route::post('/manager/{type}/restore/{id}',[ManagerController::class,'restoreNewsStocks'])->middleware('manager')->name('restoreNewsStocks');
+    });
+    
 });

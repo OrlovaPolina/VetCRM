@@ -1,0 +1,39 @@
+main{
+    #carouselIndicators{
+        width: 70vw;
+        height: 477px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .unicImg{
+        width:50vw;        
+        height: 477px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .container{
+        >.row{
+            width: 100%;
+            left: 0px;
+            margin-left: 0px;
+            padding: 20px;
+            >a.col:not(:nth-child(n+3)){
+                padding: 0px 10px 0px 0px;
+            }
+            >a.col{
+                min-width: calc(100% / 3);
+                max-width: calc(100% / 3);
+                height: 500px;                
+                margin: 0px;
+                padding: 0px;
+                >.row{
+                    >img{
+                        width: 100%;
+                        height: calc(100vh / 2);
+                    }
+                }
+            }
+        }
+    }
+}
