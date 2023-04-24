@@ -1,6 +1,11 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import '../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+
+@font-face {
+    font-family:'Inter';
+    src: url('/public/src/Inter/static/Inter-Regular.ttf') format('truetype') ;
+}
 body{
     overflow-x: hidden;
 }
@@ -8,8 +13,117 @@ body{
     width: 57px;
     margin: 10px 0px 0px 10px;
 }
-nav .nav{
+
+.container-main{
+    background:rgb(246 246 246) ;
+}
+.menu a{
+    color:#1D8452;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    
+}
+.menu a:hover{
+    color:#aab21b;
+}
+.user-dropdown button{
+    width: 154px;
+    height: 38px;
+    background: #D9D9D9;
+    border: 1px solid #929292;
+    border-radius: 19px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #1B1B1B;
+}
+.user-dropdown button:hover{    
+    color: #4b4b4b;
+}
+
+header{
+    background: #D2D2D2;
+    box-shadow: 0px 4px 17px 0px rgb(89 89 89 / 49%);
+    z-index: 100;
+    display: block;
+    position: relative;
+    .nav{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container-box{
+        display: grid;
+        grid-template: "A B B B C";        
+        .logo-box{
+            grid-area: A;
+        }        
+        .menu{
+            grid-area: B;
+        }
+        .drop-user{
+            grid-area: C;    
+            .submenu{
+                background: #D9D9D9;
+                box-shadow: 0px -5px 4px rgba(0, 0, 0, 0.25), 0px 8px 4px rgba(0, 0, 0, 0.25);
+                border-radius: 10px;
+                div{
+                    padding: 15px 0px !important;
+                }
+                a{
+                    font-family: "Inter";
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 17px;
+                    line-height: 15px;
+                    color: #000000;
+                    text-decoration: none !important;
+                }
+            }        
+        }
+        .auth-link{
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 21px;
+            line-height: 25px;
+            color: #000000;
+            text-decoration: none !important;
+        }
+        .auth-link:hover{
+            color: #5f5f5f;
+        }
+        .register_link{
+            margin-left: 31px;
+            margin-left: 26px;
+        }
+    }
+}
+.user-sub{
+    height: 100px;
+    background: #D9D9D9;
+    box-shadow: 0px 14px 10px rgba(106, 106, 106, 0.25);
+    .font-semibold{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 21px;
+        line-height: 25px;
+        color: #000000;
+    }
+    .nav a,.nav a:active,.nav a:focus{        
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 21px;
+        line-height: 25px;
+        color: #0E0E0E;
+    }
 }

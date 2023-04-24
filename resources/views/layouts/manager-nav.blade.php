@@ -3,12 +3,18 @@
 </h2>
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="/manager">Пользователи</a>
+        <a class="nav-link @if(Route::currentRouteName() == 'manager.dashboard') active @endif"  @if(Route::currentRouteName() == 'manager.dashboard') 
+        aria-current="page"
+        @endif href="/manager">Пользователи</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/manager/timetable">Расписание</a>
+        <a class="nav-link @if(Route::currentRouteName() == 'manager.timetable') active @endif"   @if(Route::currentRouteName() == 'manager.timetable') 
+        aria-current="page"
+        @endif href="/manager/timetable">Расписание</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/manager/news?type=news">Новости/Акции</a>
+        <a class="nav-link @if(Route::currentRouteName() == 'manager.news') active  @endif"  @if(Route::currentRouteName() == 'manager.news') 
+        aria-current="page"
+        @endif href="/manager/news?type=news">Новости/Акции</a>
     </li>
 </ul>
