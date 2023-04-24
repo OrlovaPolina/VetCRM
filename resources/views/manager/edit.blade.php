@@ -1,6 +1,6 @@
 @include('layouts.head')
 @include('layouts.navigation')
-<header class="bg-white dark:bg-gray-800 shadow mb-100">
+<div class="user-">
     <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
     @include('layouts.manager-nav')
     </div>
@@ -13,7 +13,7 @@
         Произошла ошибка, обратитесь к разработчикам!
     </div>
     @endif
-</header>
+</div>
 <main>
     <x-manager-edit-form :content="$content" :type="$type">
 

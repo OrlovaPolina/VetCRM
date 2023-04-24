@@ -17,16 +17,24 @@
         </h2>
     </div>
     <div class="input-group mb-3 images" id="images">
-   @foreach($content->images_urls as $key=>$img)
+    @if(isset($content->images_urls) && count($content->images_urls) >= 1)
+      @foreach($content->images_urls as $key=>$img)
+            <div class="input-group">
+                <input value="{{asset($img)}}" type="file" name="images[{{$key}}]" class="image" aaccept="image/png, image/gif, image/jpeg, image/jpg">
+                <img src="{{asset($img)}}" id="image-{{$key}}" alt="">
+                <i class="bi bi-x-circle-fill"></i>
+            </div>
+      @endforeach
+   @endif
         <div class="input-group">
-            <input value="{{asset($img)}}" type="file" name="images[{{$key}}]" class="image" aaccept="image/png, image/gif, image/jpeg, image/jpg">
-            <img src="{{asset($img)}}" id="image-{{$key}}" alt="">
-            <i class="bi bi-x-circle-fill"></i>
-        </div>
-   @endforeach
-        <div class="input-group">
+          @if(isset($content->images_urls) && count($content->images_urls) >= 1)
             <input type="file" name="images[{{count($content->images_urls)}}]" class="image" aaccept="image/png, image/gif, image/jpeg, image/jpg">
             <img src="preview-image.png" id="image-{{count($content->images_urls)}}" alt="Preview">
+          @elseif(isset($content->images_urls) && count($content->images_urls) < 1 || !isset($content->images_urls))
+          <input type="file" name="images[0]" class="image" aaccept="image/png, image/gif, image/jpeg, image/jpg">
+          <img src="preview-image.png" id="image-0" alt="Preview">
+          @endif
+            
             <i class="bi bi-x-circle-fill"></i>
         </div>
     </div>

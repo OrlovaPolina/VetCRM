@@ -16,16 +16,16 @@ $(document).ready(function(){
 
     let current_link = location.pathname + location.search;
 
-    $('.nav-link').each(function(i,e){
-        if($(this).attr('href') == current_link){
-            $(this).addClass('active').attr('aria-current','page');
-        }
-        else{
-            if($(this).hasClass('active')){
-                $(this).removeClass('active').attr('aria-current','');
-            }
-        }
-    })
+    // $('.nav-link').each(function(i,e){
+    //     if($(this).attr('href') == current_link || $(this).attr('href') == location.pathname){
+    //         $(this).addClass('active').attr('aria-current','page');
+    //     }
+    //     else{
+    //         if($(this).hasClass('active')){
+    //             $(this).removeClass('active').attr('aria-current','');
+    //         }
+    //     }
+    // })
 
     $('#reset').click(function () {
         $('form.filter-form input').each(function(i,e){

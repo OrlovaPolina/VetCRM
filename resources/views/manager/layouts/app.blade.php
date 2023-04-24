@@ -22,9 +22,9 @@
            ])
     </head>
     <body class="font-sans antialiased">  
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen container-main">
             @include('layouts.navigation')
-            <header class="bg-white dark:bg-gray-800 shadow mb-100">
+            <div class="user-sub">
                 <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
                     @include('layouts.manager-nav')
                 </div>
@@ -37,7 +37,7 @@
                     Произошла ошибка, обратитесь к разработчикам!
                 </div>
                 @endif
-            </header>
+            </div>
             <main>
                 <?
                 
@@ -46,7 +46,10 @@
                 }
                 ?>
                 <x-manager-forms :user="$users" :search="$search"/>
+                
             </main>
+            @include('layouts.footer')
         </div>
+      
     </body>
 </html>
