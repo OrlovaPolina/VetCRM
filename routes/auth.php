@@ -8,6 +8,8 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Route;
@@ -58,11 +60,14 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
     Route::name('manager.')->group(function () {
+        /**
+         * Личный кабинет менеджера с пользователями
+         */
         Route::get('/manager', function () {
             return view('manager.dashboard')->with(['users'=>null,'search'=>null]);
         })->middleware('manager')->name('dashboard');
         /**
-         * Путь до страницы с таблицей пользователей
+         * Редактирование пользовательских данных
          */
         Route::post('/manager', 
         [ManagerController::class, 'saveUserTable']
@@ -81,35 +86,80 @@ Route::middleware('auth')->group(function () {
             return view('manager.timetable');
         })->middleware('manager')->name('timetable');
         /**
-         * Путь до страницы с новостями
+         * Список новостей/акций (менеджер) 
          */
         Route::get('/manager/news',
         function(){
             return view('manager.news');
         })->middleware('manager')->name('news');
         /**
-         * Создание новостей и акций
-         * 
+         * Форма создания новостей/акций (менеджер) 
          */
         Route::get('/manager/news/create',
         function(){
             return view('manager.news-create');
         })->middleware('manager')->name('newsCreate');
+        /**
+         * Создание новостей/акций (менеджер) 
+         */
         Route::post('/manager/news',[ManagerController::class,'createNewsAndStocks'])->middleware('manager')->name('newsStocks');
-
         /** 
-         * Изменение новостей и акций
+         * Форма изменений новостей/акций (менеджер) 
          */
         Route::get('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocksPage'])->middleware('manager')->name('editNewsStocksPage');
+        /**
+         * Сохранение изменний новостей/акций (менеджер) 
+         */
         Route::post('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocks'])->middleware('manager')->name('editNewsStocks');
         /**
-         * Отключение новостей и акций
+         * Отключение новостей/акций  (менеджер) 
          */
         Route::post('/manager/{type}/delete/{id}',[ManagerController::class,'deleteNewsStocks'])->middleware('manager')->name('deleteNewsStocks');
         /**
-         * Отключение новостей и акций
+         * Восстановние новостей/акций (менеджер) 
          */
         Route::post('/manager/{type}/restore/{id}',[ManagerController::class,'restoreNewsStocks'])->middleware('manager')->name('restoreNewsStocks');
+    });
+
+    Route::name('user.')->group(function () {        
+         /**
+         * Личный кабинет пользователя
+         */
+        Route::get('/user', function () {return view('dashboard');})->middleware(['user', 'verified'])->name('user');
+        /**
+         * Страница с животными
+         */
+        Route::get('/user/animals', [UserController::class,'animalsPage'])->middleware(['user', 'verified'])->name('animals');
+        /**
+         * Создание нового животного
+         */
+        Route::post('/user/animals/create', [UserController::class,'amimalCreate'])->middleware(['user', 'verified'])->name('animalsCreate');
+        /**
+         * Просмотр всех своих записей
+         */
+        Route::get('/user/events', [UserController::class,'eventsPage'])->middleware(['user', 'verified'])->name('events');
+        /**
+         * Создание записи
+         */
+        Route::post('/user/event/new', [UserController::class,'createEvent'])->middleware(['user', 'verified'])->name('createEvent');        
+    });
+    Route::name('doctor.')->group(function () {
+        /**
+         * Личный кабинет доктора
+         */
+        Route::get('/doctor', function () {return view('dashboard');})->middleware(['doctor', 'verified'])->name('doctor');
+        /**
+         * Просмотр всех своих записей
+         */
+        Route::get('/doctor/timeboard', [DoctorController::class,'animalsPage'])->middleware(['doctor', 'verified'])->name('events');
+        /**
+         * Текущий приём
+         */
+        Route::get('/doctor/event/now', [DoctorController::class,'eventNow'])->middleware(['doctor', 'verified'])->name('eventNow');
+        /**
+         * Создание новой записи для текущего приёма
+         */
+        Route::post('/doctor/event/now', [DoctorController::class,'currentEvent'])->middleware(['doctor', 'verified'])->name('currentEvent');        
     });
     
 });

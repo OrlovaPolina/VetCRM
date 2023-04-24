@@ -18,30 +18,27 @@
         <script src="js/fullCalendar/index.global.js"></script>
     </head>
     <body class="font-sans antialiased">  
-        <style>
-            #calendar {color:#000 ;max-width: 1100px;
-    margin: 0 auto;}
+        <style>         
     .fc-popover{
         background-color: rgb(51, 51, 51) !important
     }
         </style>
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen container-main">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="user-sub">
+                <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
-                </header>
+                </div>
             @endif
 
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
-            <div id='calendar'></div>
 
         </div>
     </body>
