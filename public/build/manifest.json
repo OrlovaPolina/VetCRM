@@ -7,18 +7,22 @@
     "file": "assets/bootstrap-icons-966620f9.woff2",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
+  "public/src/Inter/static/Inter-Regular.ttf": {
+    "file": "assets/Inter-Regular-41ab0f70.ttf",
+    "src": "public/src/Inter/static/Inter-Regular.ttf"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-cf400264.css",
+    "file": "assets/app-8e4cdd28.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/css/app.scss": {
-    "file": "assets/app-eceb0df6.css",
+    "file": "assets/app-98b34049.css",
     "isEntry": true,
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-79795a42.css",
+    "file": "assets/manager-2f6cd5c8.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
@@ -43,7 +47,7 @@
     "src": "resources/js/fullCalendar/index.global.js"
   },
   "resources/js/manager.js": {
-    "file": "assets/manager-8a88d045.js",
+    "file": "assets/manager-e0e19e03.js",
     "isEntry": true,
     "src": "resources/js/manager.js"
   }

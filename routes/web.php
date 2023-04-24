@@ -20,14 +20,8 @@ use Illuminate\Support\Facades\URL;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index')->with(['title'=>'Главная']);
 })->name('home');
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -44,7 +38,5 @@ Route::get('/about',[Controller::class, 'about'])->name('about');
 Route::get('/test',function(){
    echo '<pre>' . print_r(Config::getAll(2), 1) . '</pre>';
 });
-
-
 
 require __DIR__.'/auth.php';
