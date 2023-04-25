@@ -1,4 +1,7 @@
 @auth
+    <h2 class="font-semibold">
+        {{auth()->user()->name}}
+    </h2>
     <ul class="nav nav-tabs">
         @if(Auth::user()->role == 0)           
             <li class="nav-item">

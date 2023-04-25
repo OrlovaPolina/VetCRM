@@ -131,9 +131,13 @@ Route::middleware('auth')->group(function () {
          */
         Route::get('/user/animals', [UserController::class,'animalsPage'])->middleware(['user', 'verified'])->name('animals');
         /**
+         * Форма создания нового животного
+         */
+        Route::get('/user/animals/create', [UserController::class,'animalsCreatePage'])->middleware(['user', 'verified'])->name('animalsCreatePage');
+        /**
          * Создание нового животного
          */
-        Route::post('/user/animals/create', [UserController::class,'amimalCreate'])->middleware(['user', 'verified'])->name('animalsCreate');
+        Route::post('/user/animals/create', [UserController::class,'animalCreate'])->middleware(['user', 'verified'])->name('animalsCreate');
         /**
          * Просмотр всех своих записей
          */
@@ -142,6 +146,10 @@ Route::middleware('auth')->group(function () {
          * Создание записи
          */
         Route::post('/user/event/new', [UserController::class,'createEvent'])->middleware(['user', 'verified'])->name('createEvent');        
+        /**
+         * Создание карточки животного в pdf
+         */
+        Route::post('/user/download', [UserController::class,'download'])->middleware(['user', 'verified'])->name('download');        
     });
     Route::name('doctor.')->group(function () {
         /**

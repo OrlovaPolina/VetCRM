@@ -12,7 +12,7 @@
     "src": "public/src/Inter/static/Inter-Regular.ttf"
   },
   "resources/css/app.css": {
-    "file": "assets/app-8e4cdd28.css",
+    "file": "assets/app-668d5d9d.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -27,7 +27,7 @@
     "src": "resources/css/manager.scss"
   },
   "resources/css/public.scss": {
-    "file": "assets/public-9cc78454.css",
+    "file": "assets/public-2569f1ae.css",
     "isEntry": true,
     "src": "resources/css/public.scss"
   },
