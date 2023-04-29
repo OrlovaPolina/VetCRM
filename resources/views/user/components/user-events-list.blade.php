@@ -33,31 +33,51 @@
                             <div class="d-flex">
                                 <div class="name">Температура: </div>
                                 <div class="value">
+                                    @if(($visits->where('event_id',$event->id)->first()))
                                     {{$visits->where('event_id',$event->id)->first()->temp}} &#xb0;С
+                                    @else
+                                    Приёма ещё не было
+                                    @endif
                                 </div>
                             </div>
                             <div class="d-flex">
                                 <div class="name">Вес: </div>
                                 <div class="value">
+                                    @if(($visits->where('event_id',$event->id)->first()))
                                     {{$visits->where('event_id',$event->id)->first()->weight}} кг
+                                    @else
+                                    Приёма ещё не было
+                                    @endif
                                 </div>
                             </div>
                             <div class="d-flex">
                                 <div class="name">Жалобы: </div>
                                 <div class="value">
+                                    @if(($visits->where('event_id',$event->id)->first()))
                                     {{$visits->where('event_id',$event->id)->first()->complaints}}
+                                    @else
+                                    Приёма ещё не было
+                                    @endif
                                 </div>
                             </div>
                             <div class="d-flex">
                                 <div class="name">Осмотр: </div>
                                 <div class="value">
+                                    @if(($visits->where('event_id',$event->id)->first()))
                                     {{$visits->where('event_id',$event->id)->first()->inspection}}
+                                    @else
+                                    Приёма ещё не было
+                                    @endif
                                 </div>
                             </div>
                             <div class="d-flex">
                                 <div class="name">Лечение: </div>
                                 <div class="value">
+                                    @if(($visits->where('event_id',$event->id)->first()))
                                     {{$visits->where('event_id',$event->id)->first()->therapy}}
+                                    @else
+                                    Приёма ещё не было
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Animals;
 use App\Models\Breed;
+use App\Models\DoctorConfig;
 use App\Models\Events;
 use App\Models\Species;
+use App\Models\User;
 use App\Models\Visits;
+use Carbon\Carbon;
 use DateTime;
 use Exception;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -81,7 +85,87 @@ class UserController extends Controller
         return view('user.layouts.events')->with(['title'=>'Записи','events'=>$events,'visits'=>$visits]);
     }
 
-    public function createEvent(Request $request){}
+    public function createEventPage(){
+            $animals = Animals::where('user_id',Auth::user()->id)->get();
+            $doctors = User::where('role','1')->get();
+            return view('user.layouts.event')->with(['title'=>'Записаться на приём','user_sub'=>true,'animals'=> $animals,'doctors'=>$doctors ]);
+       
+    }
+
+    public function getDoctorsParameters(Request $request){
+        $doctor_config = Config::get($request->doctor,'schedule_work');
+        return response()->json(['doctor'=>json_decode($doctor_config->value,1)]);
+
+    }
+    public function createEvent(Request $request){
+        $animals = $request->animals;
+        $doctors = $request->doctors;
+        $doctors_d = $request->doctors_date;
+        $doctors_t = $request->doctors_time;
+        // echo '<pre>' . print_r($animals, 1) . '</pre>';
+        // echo '<pre>' . print_r($doctors, 1) . '</pre>';
+        // echo '<pre>' . print_r($doctors_d, 1) . '</pre>';
+        // echo '<pre>' . print_r($doctors_t, 1) . '</pre>';
+
+        $title = 'Запись к ' . User::where('id',$doctors)->get()->first()->name;
+        $config = Config::get($doctors,'schedule_work');
+        $config = json_decode($config->value,1);
+        $error = true;
+        $endTime = '';
+        foreach($config[$doctors_d] as $key=>$day){            
+            foreach($day as $k=>$start){
+                if($k=='start'){
+                    if($start == $doctors_t)
+                    {
+                        $error = false;
+                        $endTime = $config[$doctors_d][$key]['end'];
+                        unset($config[$doctors_d][$key]);
+                    }
+                }
+            }          
+        }
+
+        if($error == false){
+            try{
+                $update = DoctorConfig::where(['doctor_id'=>$doctors,'name'=>'schedule_work'])->get()->first();
+                $update->value = json_encode($config);
+                $update->save();
+                $start = new Carbon(new DateTime($doctors_d .' ' . $doctors_t));
+                $start = $start->format('Y-m-d H:i:s');
+                $end = new Carbon(new DateTime($doctors_d .' ' . $endTime));
+                $now = new Carbon();
+                $now = $now->format('Y-m-d H:i:s');
+                $event = Events::create([
+                    'title'=>$title,
+                    'start'=>$start,
+                    'end'=>$end,
+                    'created_at'=> $now,
+                    'user_id'=>Auth::user()->id,
+                    'doctor_id'=>$doctors,
+                    'animal_id'=>$animals
+                ]);
+            }
+            catch(Exception $e){
+                // return redirect()->route('user.createEventPage',['error'=>true]);
+                echo '<pre>' . print_r($e->getMessage(), 1) . '</pre>';
+            }
+            
+        }
+        else{
+            return redirect()->route('user.createEventPage',['error'=>true]);
+            // echo '<pre>' . print_r($e->getMessage(), 1) . '</pre>';
+        }
+
+        
+
+        // die();
+        // echo '<pre>error = ' . print_r($error, 1) . '</pre>';
+        // echo '<pre>error = ' . print_r($config[$doctors_d], 1) . '</pre>';
+        // echo '<pre>' . print_r($title, 1) . '</pre>';
+        // echo '<pre>' . print_r($config, 1) . '</pre>';
+        
+        return redirect()->route('user.createEventPage',['success'=>true]);
+    }
 
     public function download(){}
 

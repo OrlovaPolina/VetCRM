@@ -67,6 +67,10 @@ main{
             height: fit-content;
         }
     }
+    .event-table{
+        margin-top: 100px;
+        width: 70vw;
+    }
     .animal-box{
         min-height: 100px;
         flex-direction: column;
@@ -152,5 +156,36 @@ main{
             }
         }
         
+    }
+    .animal-table{
+        top:10%;
+    }
+    &.animal-create-box{
+        min-height: 100vh;
+        .form-select,.form-floating{
+            height: 100%;
+    margin-bottom: 0px !important;
+        }
+        .input-group-text{
+            width: 15%;
+        }
+        button{
+            width: 295px;
+            height: 62px;  
+            background: #198754;
+            border: none !important;
+            border-radius: 10px;
+            font-family: 'Ibarra Real Nova';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 27px;
+            line-height: 34px;
+            color: #86FFBE;
+            &:hover{                
+                border: none !important;
+                background: rgba(238, 202, 76, 0.29);
+                color: #2C582B;
+            }
+        }
     }
 }

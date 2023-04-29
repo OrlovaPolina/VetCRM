@@ -8,6 +8,25 @@ main{
     top: 0px;
     max-width: 100vw;
     position: relative;
+    .time-td{
+        .fc-event-time{
+            display: none;
+        }
+    }
+    &.d-flex{
+        flex-direction: column;
+        align-items: center;
+    }
+    .create-schedule-form{        
+        height: 233px;
+        display: flex;
+        &.show{
+            display: flex;
+        }
+    }
+    .accordion-collapse.collapse.show{
+        visibility: visible !important;
+    }
     .users-filter,.users-table{
         margin-bottom: 100px;
         max-width: 95vw;
@@ -38,6 +57,12 @@ main{
     }
     .input-group{
         max-width: 450px;
+    }
+    .btn.create-schedule{
+        width: 380px;
+    }
+    #calendar-curent-schedule{
+        width: 70%;
     }
 }
 header{

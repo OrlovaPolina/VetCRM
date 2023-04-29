@@ -12,19 +12,30 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-        @vite(['resources/css/app.css',
-        'resources/js/app.js',
-        'resources/js/app.js',
-        'resources/css/app.scss',
-        'resources/css/public.scss'])
-        <script src="js/fullCalendar/index.global.js"></script>
+        @vite([
+        'resources/css/app.css',   
+        'resources/css/app.scss',   
+        'resources/css/public.scss',  
+        'resources/js/app.js',        
+        'resources/js/user.js',       
+        ])
+        {{-- <script src="js/fullCalendar/index.global.js"></script> --}}
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen container-main">
             @include('layouts.navigation')
+            @if(!isset($user_sub))
             <div class="user-sub">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <x-user-sub-nav></x-user-sub-nav>
                 </div>
             </div>
+            @endif
+            @auth
+                @if(Auth::user()->role === '2')
+                <div class="user-sub">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    @include('layouts.manager-nav')
+                </div>
+                @endif
+            @endauth

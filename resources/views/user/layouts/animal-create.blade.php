@@ -1,5 +1,6 @@
 @include('layouts.header')
-<main>
+<main class="position-relative animal-create-box">
+    <div class="animal-table w-50 top-10 d-grid position-absolute start-50 translate-middle-x">
     <form action="{{route('user.animalsCreate')}}" method="post">
     @csrf
     <div class="input-group mb-3">
@@ -59,8 +60,9 @@
         </div>
     </div> 
     <div class="input-group mb-3">
-        <button type="submit">Добавить</button>
+        <button class="start-50 position-relative translate-middle-x" type="submit">Добавить</button>
     </div>
     </form>
+    </div>
 </main>
 @include('layouts.footer')

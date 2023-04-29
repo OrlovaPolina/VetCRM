@@ -32,6 +32,15 @@
                             О нас
                         </a>
                     </li>
+                    @auth
+                        @if (Auth::user()->role === '0')
+                        <li class="nav-item">                            
+                            <a class="nav-link" href="{{route('user.createEventPage')}}">
+                                Записаться на приём
+                            </a>
+                        </li>
+                        @endif
+                    @endauth
                 </ul>                         
             @auth
             <div class="drop-user sm:flex sm:items-center sm:ml-6 ">
