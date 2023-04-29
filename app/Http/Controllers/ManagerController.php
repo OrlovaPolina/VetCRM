@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Config;
+use App\Models\DoctorConfig;
+use Carbon\Carbon;
 
 class ManagerController extends Controller
 {
@@ -34,6 +37,16 @@ class ManagerController extends Controller
         'stocks' => Stocks::class,
         0 => News::class,
         1 => Stocks::class,
+    ];
+
+    protected const WEEK = [
+        0=>Carbon::SUNDAY,
+        1=>Carbon::MONDAY,
+        2=>Carbon::TUESDAY,
+        3=>Carbon::WEDNESDAY,
+        4=>Carbon::THURSDAY,
+        5=>Carbon::FRIDAY,
+        6=>Carbon::SATURDAY,
     ];
 
     private const UPLOAD_DIR = 'uploads/news/';
@@ -213,5 +226,68 @@ class ManagerController extends Controller
     {
             self::TYPE_CLASS[$type]::withTrashed()->where('id',$id)->restore();
             return redirect('manager/news?type='.$type,301);
+    }
+
+    public function doctorEdit($id){
+        $schedule_c = Config::get($id,'schedule');
+        $schedule = json_decode($schedule_c->value,1);
+        return view('manager.layouts.doctor')->with(['title'=>'Редактирование настроек','user_sub'=>false,'schedule'=>$schedule,'doctor'=>$schedule_c->doctor]);
+    }
+    public function doctorEditForm(Request $request){
+        $last = Config::get($request->doctor,'schedule');
+        $last = array_reverse(json_decode($last->value,1));
+        $last_ = "";
+        $interval = $request->hours;
+        $week = $request->week;
+        foreach($last as $k=>$l){
+            $last_ = new Carbon(new DateTime($k));
+            break;
+        }
+        $ll = $last_;
+        $new_dates = [];
+        $next = "";
+        foreach ($week as $k=>$v){
+            $last = $last_->clone();
+            array_push($new_dates,$last->next(self::WEEK[$k])->format('Y-m-d'));
+           
+            $a=$last->clone();
+            for($i = 0;$i<3;$i++){
+                $a = $a->clone();
+                array_push($new_dates,$a->addWeek()->format('Y-m-d'));
+            }
+        }
+        $new_conf = [];
+        foreach($new_dates as $key=>$date){
+            // $new_conf[$date];
+            $count_intervals = 600 / $interval;
+            $time_arr = [];
+            $start = new Carbon('2023-01-01 11:00');
+            for($i = 0;$i<$count_intervals;$i++){
+                $new_conf[$date][$i] = [
+                    'start'=>$start->format('H:i'),
+                    'end'=>$start->addMinutes($interval)->format('H:i')
+                ];
+            }
+        }
+        try{
+            $update = DoctorConfig::where(['doctor_id'=>$request->doctor,'name'=>'schedule'])->get()->first();
+            $update->value = json_encode($new_conf);
+            $update->save();
+            $update = DoctorConfig::where(['doctor_id'=>$request->doctor,'name'=>'schedule_work'])->get()->first();
+            $update->value = json_encode($new_conf);
+            $update->save();
+        }
+        catch(Exception $e){
+            return redirect()->route('manager.doctorEdit',['id'=>$request->doctor,'error'=>true]);
+        }
+        return redirect()->route('manager.doctorEdit',['id'=>$request->doctor,'success'=>true]);
+        
+        // echo '<pre>' . print_r($request->hours, 1) . '</pre>';
+        // // echo '<pre>' . print_r($last_, 1) . '</pre>';
+        // echo '<pre>' . print_r($new_dates, 1) . '</pre>';
+        // echo '<pre>' . print_r($new_conf,1) . '</pre>';
+        // echo '<pre>' . json_encode($new_conf) . '</pre>';
+        // die();
+
     }
 }

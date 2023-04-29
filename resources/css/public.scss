@@ -1,4 +1,5 @@
 main{
+    padding-bottom: 100px;
     #carouselIndicators{
         width: 70vw;
         height: 477px;
@@ -33,6 +34,157 @@ main{
                         height: calc(100vh / 2);
                     }
                 }
+            }
+        }
+    }
+    .btn-box{
+        width: 327px;
+        height: 49px;
+        background: rgba(147, 147, 147, 0.38);
+        border-radius: 20px;
+        align-items: center;
+        &:hover{
+            cursor: pointer;
+            background: rgba(106, 189, 147, 0.38);
+            a{                
+                color: #61b2ca;
+            }
+            i::before{
+                color:#61b2ca;
+            }
+        }
+        i{            
+            height: fit-content;
+        }
+        a{
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 21px;
+            line-height: 25px;
+            color: #000000;
+            text-decoration: none !important;
+            height: fit-content;
+        }
+    }
+    .event-table{
+        margin-top: 100px;
+        width: 70vw;
+    }
+    .animal-box{
+        min-height: 100px;
+        flex-direction: column;
+        .animal,.events{
+            height: 133px;
+            background: #D9D9D9;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.11);
+            border-radius: 10px 10px 0px 0px;
+            overflow: hidden;
+            
+            &:not(:last-child){
+                margin-bottom: 50px;
+            }
+            table{
+                width: 100%;
+                height: inherit;
+                display: grid;
+                thead{
+                    display: flex;
+                    width: 100%;
+                    tr{
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: end;
+                    }
+                }
+                tbody{
+                    display: flex;
+                    width: 100%; 
+                    tr{
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;                        
+                        align-items: start;
+                        .download{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 258px;
+                            height: 35px;
+                            background: rgba(238, 202, 76, 0.29);
+                            border: 1px solid rgba(185, 183, 183, 0.27);
+                            border-radius: 10px;
+                            font-family: 'Inter';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 18px;
+                            line-height: 25px;
+                            color: #2C582B;
+                            text-decoration: none !important;
+                            
+                            &:hover{                                
+                                background: rgba(56, 184, 18, 0.29);
+                                color: #138611;
+                            }
+                        }
+                    }                   
+                }
+            }
+        }
+        .events{
+            overflow: unset !important;
+            height: auto;
+            .accordion-button:not(.collapsed),.accordion-button:active, .accordion-button:focus{
+                border: none !important;
+                background-color: #aae3be;
+                box-shadow: none !important;
+                color: #1c6141;
+            }
+            .accordion-collapse.collapse.show{
+                visibility: visible !important;
+            }
+            .accordion-button{
+                div{
+                    &:nth-child(1){
+                        width: 10%;
+                    }
+                    &:nth-child(2){width: 10%;}
+                    &:nth-child(3){width: 70%;}
+                    &:nth-child(4){width: 10%;}
+                }
+            }
+        }
+        
+    }
+    .animal-table{
+        top:10%;
+    }
+    &.animal-create-box{
+        min-height: 100vh;
+        .form-select,.form-floating{
+            height: 100%;
+    margin-bottom: 0px !important;
+        }
+        .input-group-text{
+            width: 15%;
+        }
+        button{
+            width: 295px;
+            height: 62px;  
+            background: #198754;
+            border: none !important;
+            border-radius: 10px;
+            font-family: 'Ibarra Real Nova';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 27px;
+            line-height: 34px;
+            color: #86FFBE;
+            &:hover{                
+                border: none !important;
+                background: rgba(238, 202, 76, 0.29);
+                color: #2C582B;
             }
         }
     }

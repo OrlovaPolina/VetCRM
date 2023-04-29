@@ -65,83 +65,111 @@ Route::middleware('auth')->group(function () {
          */
         Route::get('/manager', function () {
             return view('manager.dashboard')->with(['users'=>null,'search'=>null]);
-        })->middleware('manager')->name('dashboard');
+        })->middleware(['manager', 'verified'])->name('dashboard');
         /**
          * Редактирование пользовательских данных
          */
         Route::post('/manager', 
         [ManagerController::class, 'saveUserTable']
-        )->middleware('manager')->name('saveUsers');
+        )->middleware(['manager', 'verified'])->name('saveUsers');
+        /**
+         * Форма Редактирования данных доктора
+         */
+        Route::get('/manager/doctor/{id}', 
+        [ManagerController::class, 'doctorEdit']
+        )->middleware(['manager', 'verified'])->name('doctorEdit');
+        /**
+         * Редактирование данных доктора
+         */
+        Route::post('/manager/doctor/{id}', 
+        [ManagerController::class, 'doctorEditForm']
+        )->middleware(['manager', 'verified'])->name('doctorEditForm');
         /**
          * Поиск пользователей
          */
         Route::post('/manager/search', 
         [ManagerController::class, 'search']
-        )->middleware('manager')->name('searchUsers');
+        )->middleware(['manager', 'verified'])->name('searchUsers');
         /**
          * Путь до страницы с расписанием
          */
         Route::get('/manager/timetable',
         function(){
             return view('manager.timetable');
-        })->middleware('manager')->name('timetable');
+        })->middleware(['manager', 'verified'])->name('timetable');
         /**
          * Список новостей/акций (менеджер) 
          */
         Route::get('/manager/news',
         function(){
             return view('manager.news');
-        })->middleware('manager')->name('news');
+        })->middleware(['manager', 'verified'])->name('news');
         /**
          * Форма создания новостей/акций (менеджер) 
          */
         Route::get('/manager/news/create',
         function(){
             return view('manager.news-create');
-        })->middleware('manager')->name('newsCreate');
+        })->middleware(['manager', 'verified'])->name('newsCreate');
         /**
          * Создание новостей/акций (менеджер) 
          */
-        Route::post('/manager/news',[ManagerController::class,'createNewsAndStocks'])->middleware('manager')->name('newsStocks');
+        Route::post('/manager/news',[ManagerController::class,'createNewsAndStocks'])->middleware(['manager', 'verified'])->name('newsStocks');
         /** 
          * Форма изменений новостей/акций (менеджер) 
          */
-        Route::get('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocksPage'])->middleware('manager')->name('editNewsStocksPage');
+        Route::get('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocksPage'])->middleware(['manager', 'verified'])->name('editNewsStocksPage');
         /**
          * Сохранение изменний новостей/акций (менеджер) 
          */
-        Route::post('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocks'])->middleware('manager')->name('editNewsStocks');
+        Route::post('/manager/{type}/edit/{id}',[ManagerController::class,'editNewsStocks'])->middleware(['manager', 'verified'])->name('editNewsStocks');
         /**
          * Отключение новостей/акций  (менеджер) 
          */
-        Route::post('/manager/{type}/delete/{id}',[ManagerController::class,'deleteNewsStocks'])->middleware('manager')->name('deleteNewsStocks');
+        Route::post('/manager/{type}/delete/{id}',[ManagerController::class,'deleteNewsStocks'])->middleware(['manager', 'verified'])->name('deleteNewsStocks');
         /**
          * Восстановние новостей/акций (менеджер) 
          */
-        Route::post('/manager/{type}/restore/{id}',[ManagerController::class,'restoreNewsStocks'])->middleware('manager')->name('restoreNewsStocks');
+        Route::post('/manager/{type}/restore/{id}',[ManagerController::class,'restoreNewsStocks'])->middleware(['manager', 'verified'])->name('restoreNewsStocks');
     });
 
     Route::name('user.')->group(function () {        
          /**
          * Личный кабинет пользователя
          */
-        Route::get('/user', function () {return view('dashboard');})->middleware(['user', 'verified'])->name('user');
+        Route::get('/user', function () {return redirect()->route('user.animals');})->middleware(['user', 'verified'])->name('user');
         /**
          * Страница с животными
          */
         Route::get('/user/animals', [UserController::class,'animalsPage'])->middleware(['user', 'verified'])->name('animals');
         /**
+         * Форма создания нового животного
+         */
+        Route::get('/user/animals/create', [UserController::class,'animalsCreatePage'])->middleware(['user', 'verified'])->name('animalsCreatePage');
+        /**
          * Создание нового животного
          */
-        Route::post('/user/animals/create', [UserController::class,'amimalCreate'])->middleware(['user', 'verified'])->name('animalsCreate');
+        Route::post('/user/animals/create', [UserController::class,'animalCreate'])->middleware(['user', 'verified'])->name('animalsCreate');
         /**
          * Просмотр всех своих записей
          */
         Route::get('/user/events', [UserController::class,'eventsPage'])->middleware(['user', 'verified'])->name('events');
         /**
-         * Создание записи
+         * Форма Создания записи
          */
+        Route::get('/user/event/new', [UserController::class,'createEventPage'])->middleware(['user', 'verified'])->name('createEventPage');        
+       /**
+        * Получение расписания врачей
+        */
+        Route::post('/user/event/new/doctor', [UserController::class,'getDoctorsParameters'])->middleware(['user', 'verified'])->name('getDoctorsParameters'); 
+         /**
+         * Создание записи
+         */    
         Route::post('/user/event/new', [UserController::class,'createEvent'])->middleware(['user', 'verified'])->name('createEvent');        
+        /**
+         * Создание карточки животного в pdf
+         */
+        Route::get('/user/download', [UserController::class,'download'])->middleware(['user', 'verified'])->name('download');        
     });
     Route::name('doctor.')->group(function () {
         /**

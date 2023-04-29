@@ -12,7 +12,7 @@
     "src": "public/src/Inter/static/Inter-Regular.ttf"
   },
   "resources/css/app.css": {
-    "file": "assets/app-8e4cdd28.css",
+    "file": "assets/app-b06c8f46.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -22,12 +22,12 @@
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-2f6cd5c8.css",
+    "file": "assets/manager-00c244e5.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
   "resources/css/public.scss": {
-    "file": "assets/public-9cc78454.css",
+    "file": "assets/public-ecad6df5.css",
     "isEntry": true,
     "src": "resources/css/public.scss"
   },
@@ -47,8 +47,13 @@
     "src": "resources/js/fullCalendar/index.global.js"
   },
   "resources/js/manager.js": {
-    "file": "assets/manager-e0e19e03.js",
+    "file": "assets/manager-7519d22c.js",
     "isEntry": true,
     "src": "resources/js/manager.js"
+  },
+  "resources/js/user.js": {
+    "file": "assets/user-4bab4ee7.js",
+    "isEntry": true,
+    "src": "resources/js/user.js"
   }
 }
