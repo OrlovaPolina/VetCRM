@@ -9,7 +9,8 @@ class Events extends Model
 {
     use HasFactory;
     protected $table = 'events';
-    protected $fileds = ['id','title','start','end','created_at','user_id','doctor_id','animal_id'];
+    protected $fillable = ['id','title','start','end','created_at','updated_at','user_id','doctor_id','animal_id'];
+    protected $fileds = ['id','title','start','end','created_at','updated_at','user_id','doctor_id','animal_id'];
 
     public function user() {
         return $this->belongsTo(User::class);

@@ -55,6 +55,54 @@ $(document).ready(function(){
             changeCounterFileBlocks();
         }
     })
+
+    let events = $('#current-schedule li');
+    let events_arr = [];
+    events.each(function(){
+        let start_a = $(this).data('start');
+        let end_a = $(this).data('end');
+        events_arr.push({
+            title:start_a,
+            start:start_a,
+            end:end_a
+        });
+    });
+    var calendarEl = document.getElementById('calendar-curent-schedule');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'ru',
+        contentHeight:"auto",
+      headerToolbar: {
+        left: 'prev,next today',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      initialDate: new Date(),
+      eventClassNames: 'time-td',
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      selectMirror: true,
+      select: function(arg) {
+        var title = prompt('Расписание:');
+        if (title) {
+          calendar.addEvent({
+            title: arg.title,
+            start: arg.start,
+            end: arg.end,
+            allDay: arg.allDay
+          })
+        }
+        calendar.unselect()
+      },
+      editable: true,
+      dayMaxEventRows: 6, // allow "more" link when too many events
+      events:events_arr
+    });
+    calendar.render();
+    
+    // $('.create-schedule').click(function () {
+    //     $('.create-schedule-form').toggleClass('d-none').toggleClass('d-flex')
+    //   })
+
 })
 
 function changeImagesBlocks(currenImg){

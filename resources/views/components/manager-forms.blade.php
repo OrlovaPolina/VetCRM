@@ -46,6 +46,7 @@
                         <th scope="col" class="fs-2">Роль</th>
                         <th scope="col" class="fs-2">Врач</th>
                         <th scope="col" class="fs-2">ЧС</th>
+                        <th scope="col" class="fs-2"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,6 +92,13 @@
                                 role="switch" >
                         </div>
                     </td>
+                    @if(intval($user->role) == 1)
+                    <td>
+                        <div class="form-check form-switch">
+                            <a href="{{route('manager.doctorEdit',[$user->id])}}">Изменить расписание</a>
+                        </div>
+                    </td>
+                    @endif
                 </tr>          
                 @endforeach
                 </tbody>

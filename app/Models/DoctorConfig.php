@@ -10,4 +10,8 @@ class DoctorConfig extends Model
     use HasFactory;
     protected $table = 'doctor_config';
     protected $fillable = ['id','doctor_id','name','value'];
+    
+    public function doctor(){
+        return $this->belongsTo(User::class);
+    }
 }

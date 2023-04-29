@@ -11,6 +11,7 @@ export default defineConfig({
             'resources/js/fullCalendar/index.global.js',
             'resources/js/calendar.js',
             'resources/js/manager.js',
+            'resources/js/user.js',
             'resources/css/public.scss',
         ]),
         {
