@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DoctorConfig;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,11 +43,31 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        
 
         event(new Registered($user));
 
         Auth::login($user);
 
+
+        $config = DoctorConfig::create([
+            'doctor_id'=>Auth::user()->id,
+            'name'=>'schedule',
+            'value'=>json_encode([]),
+            'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+        $config = DoctorConfig::create([
+            'doctor_id'=>Auth::user()->id,
+            'name'=>'vocation',
+            'value'=>0,
+            'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+        $config = DoctorConfig::create([
+            'doctor_id'=>Auth::user()->id,
+            'name'=>'schedule_work',
+            'value'=>json_encode([]),
+            'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+        ]);
         return redirect()->route('user.user');
     }
 }
