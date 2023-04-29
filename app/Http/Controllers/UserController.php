@@ -60,10 +60,11 @@ class UserController extends Controller
                 Animals::create($params);
             }
             catch(Exception $e){
-                redirect('/user/animals?error=true');
+               return redirect()->route('user.animals',['error'=>true]);
             }
             finally{
-                redirect('/user/animals',301);
+                return redirect()->route('user.animals',['success'=>true]);
+                // redirect('/user/animals',301);
             }
         }
     }

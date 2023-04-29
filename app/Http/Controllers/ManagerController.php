@@ -239,10 +239,13 @@ class ManagerController extends Controller
         $last_ = "";
         $interval = $request->hours;
         $week = $request->week;
+        if(count($last)>=1)
         foreach($last as $k=>$l){
             $last_ = new Carbon(new DateTime($k));
             break;
         }
+        else
+        $last_ = new Carbon();
         $ll = $last_;
         $new_dates = [];
         $next = "";

@@ -39,15 +39,17 @@
                     </tr>
                     <tr>
                         @php
-                        if($events[$animal->id]){
+                        if(isset($events[$animal->id])){
                             $date = new DateTimeImmutable($events[$animal->id]);
                             $date = $date->format('Y-m-d H:i');
                         }
+                        else
+                        $date = 'Еще не было приёма';
                         @endphp
-                        <td>{{$events[$animal->id] ? $date  : '-'}}</td>
+                        <td>{{isset($events[$animal->id]) ? $date  : '-'}}</td>
                     </tr>
                     <tr>
-                        <td>{{$visits[$animal->id]  ? $visits[$animal->id] .' кг': '-'}}</td>
+                        <td>{{isset($visits[$animal->id])  ? $visits[$animal->id] .' кг': '-'}}</td>
                     </tr>
                     <tr>
                         <td>{{$animal->age}}</td>
