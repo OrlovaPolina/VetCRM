@@ -20,6 +20,7 @@
         'resources/js/user.js',       
         ])
         {{-- <script src="js/fullCalendar/index.global.js"></script> --}}
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen container-main">

@@ -13,6 +13,7 @@ export default defineConfig({
             'resources/js/manager.js',
             'resources/js/user.js',
             'resources/css/public.scss',
+            'resources/css/pdf.scss',
         ]),
         {
             name: 'blade',

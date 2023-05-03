@@ -169,7 +169,7 @@ Route::middleware('auth')->group(function () {
         /**
          * Создание карточки животного в pdf
          */
-        Route::get('/user/download', [UserController::class,'download'])->middleware(['user', 'verified'])->name('download');        
+        Route::post('/user/download', [UserController::class,'download'])->middleware(['user', 'verified'])->name('download');        
     });
     Route::name('doctor.')->group(function () {
         /**
