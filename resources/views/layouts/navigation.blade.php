@@ -27,11 +27,11 @@
                             Акции
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{route('about')}}">
                             О нас
                         </a>
-                    </li>
+                    </li> --}}
                     @auth
                         @if (Auth::user()->role === '0')
                         <li class="nav-item">                            
