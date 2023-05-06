@@ -13,16 +13,26 @@
     </div>  
     <div class="input-group mb-3">
         <span class="input-group-text" id="breed">Порода</span>
-        <select class="form-select form-select-lg mb-3"
-        aria-label=".form-select-lg example"
-        name="breed"
+        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." name="breed">
+        <datalist id="datalistOptions">
+            {{-- <option value="San Francisco">
+            <option value="New York">
+            <option value="Seattle">
+            <option value="Los Angeles">
+            <option value="Chicago"> --}}
+            @foreach ($breed as $b)
+                <option value="{{$b->id}}">{{$b->name}}</option>
+            @endforeach   
+          </datalist>
+        {{-- <select class="form-select form-select-lg mb-3"
+        aria-label=".form-select-lg example"        
         placeholder="Порода"
         aria-label="Порода"
         aria-describedby="breed">
             @foreach ($breed as $b)
                 <option value="{{$b->id}}" @if($b->id == 1) selected @endif>{{$b->name}}</option>
             @endforeach           
-        </select>
+        </select> --}}
     </div>  
     <div class="input-group mb-3">
         <span class="input-group-text" id="species">Вид</span>

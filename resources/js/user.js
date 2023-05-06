@@ -69,27 +69,5 @@ $(document).ready(function () {
         })
     })
 
-    // $('.animal a.download').click(function(e){
-    //     e.preventDefault();
-    //     let token = $(this).parent().children('input[name="_token"]').val();
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },            
-    //         url:'/user/download',            
-    //         global: false,
-    //         type: 'POST',
-    //     });
-    //     let _id = $(this).parent().children('input[name="id"]').val();
-    //     $.ajax({
-    //         data:{id:_id,_token:token},
-    //         success:function(response){
-    //             const data = response;
-    //                 const link = document.createElement('a');
-    //                 link.setAttribute('href', data);
-    //                 link.setAttribute('download', 'yourfilename.pdf'); // Need to modify filename ...
-    //                 link.click();
-    //         }
-    //     });
-    // })
+    
 })
