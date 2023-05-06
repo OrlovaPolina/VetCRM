@@ -174,8 +174,6 @@ class DoctorController extends Controller
                     }
                 }
             }
-            // echo '<pre>' . print_r($params, 1) . '</pre>';
-            // die();
         return redirect()->route('doctor.timeboard',$params);
     }
 }

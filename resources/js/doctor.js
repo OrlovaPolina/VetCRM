@@ -29,8 +29,6 @@ $(document).ready(function () {
                 url:url
             });
         });
-        // console.log(events);
-        // console.log(events_arr);
         var calendarEl = document.getElementById('calendar-curent-schedule');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -74,7 +72,6 @@ $(document).ready(function () {
             cache:false,
             data:{_token:token,doctor:doctor},
             success:function(response){
-                console.log(response);
                 var schedule = Object.keys(response.doctor).map((key) => [key, response.doctor[key]]);
                 $.each(schedule, function (index,value) {
                     let val = Object.keys(value).map((key) => [key, value[key]]);

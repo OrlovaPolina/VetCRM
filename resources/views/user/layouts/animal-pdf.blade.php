@@ -11,9 +11,8 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <style>
-           *{
+           *,p,h1,h2,h3,h4,h5,span,div{
                 font-family:'dejavu serif';
-
             }
         </style>
         <!-- Scripts -->
@@ -31,7 +30,7 @@
             <div><img src="{{asset('vetpng.png')}}" id="logoPng" alt=""></div>
             <h1 class="text-center">VETCRM</h1>
         </div>
-        <h2>{{Auth::user()->name}}</h2>
+        <h2><p>{{Auth::user()->name}}</p></h2>
         <h2>
             <p>{{$animal_name->name}} - {{$animal_name->species->name}}</p>
         </h2>
