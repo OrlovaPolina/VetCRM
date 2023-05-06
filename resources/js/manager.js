@@ -83,7 +83,7 @@ $(document).ready(function(){
         }
        
     });
-    if(window.location.pathname.indexOf('manager/doctor') != -1 && window.location.pathname.indexOf('/manager/timetable') != -1){
+    if(window.location.pathname.indexOf('manager/doctor') != -1 || window.location.pathname.indexOf('/manager/timetable') != -1){
 
     
     var calendarEl = document.getElementById('calendar-curent-schedule');

@@ -22,7 +22,7 @@
     "src": "resources/css/app.scss"
   },
   "resources/css/manager.scss": {
-    "file": "assets/manager-00c244e5.css",
+    "file": "assets/manager-7bbd21c1.css",
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
@@ -57,7 +57,7 @@
     "src": "resources/js/fullCalendar/index.global.js"
   },
   "resources/js/manager.js": {
-    "file": "assets/manager-63368bdf.js",
+    "file": "assets/manager-e868f0b5.js",
     "isEntry": true,
     "src": "resources/js/manager.js"
   },
