@@ -1,5 +1,9 @@
 main{
+    
     padding-bottom: 100px;
+    .form-switch .form-check-input:checked {
+        background-position-x: 8px;
+    }
     #carouselIndicators{
         width: 70vw;
         height: 477px;

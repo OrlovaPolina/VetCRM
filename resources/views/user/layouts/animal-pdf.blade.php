@@ -108,5 +108,8 @@
             @endif
             @endif
         </div>
+@vite([       
+'resources/js/user.js',  
+])
 </body>
 </html>

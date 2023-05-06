@@ -179,7 +179,7 @@ Route::middleware('auth')->group(function () {
         /**
          * Просмотр всех своих записей
          */
-        Route::get('/doctor/timeboard', [DoctorController::class,'animalsPage'])->middleware(['doctor', 'verified'])->name('events');
+        Route::get('/doctor/timeboard', [DoctorController::class,'timeboard'])->middleware(['doctor', 'verified'])->name('timeboard');
         /**
          * Текущий приём
          */
@@ -187,7 +187,11 @@ Route::middleware('auth')->group(function () {
         /**
          * Создание новой записи для текущего приёма
          */
-        Route::post('/doctor/event/now', [DoctorController::class,'currentEvent'])->middleware(['doctor', 'verified'])->name('currentEvent');        
+        Route::post('/doctor/event/now', [DoctorController::class,'currentEvent'])->middleware(['doctor', 'verified'])->name('currentEvent');  
+        /**
+         * Получить данные о докторе
+         *  */      
+        Route::post('/doctor/event/new/doctor', [DoctorController::class,'getDoctorsParameters'])->middleware(['doctor', 'verified'])->name('getDoctorsParameters');     
     });
     
 });

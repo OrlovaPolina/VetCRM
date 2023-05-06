@@ -99,9 +99,10 @@ class UserController extends Controller
 
     public function getDoctorsParameters(Request $request){
         $doctor_config = Config::get($request->doctor,'schedule_work');
+        echo '<pre>' . print_r($doctor_config, 1) . '</pre>';
         return response()->json(['doctor'=>json_decode($doctor_config->value,1)]);
-
     }
+
     public function createEvent(Request $request){
         $animals = $request->animals;
         $doctors = $request->doctors;

@@ -65,4 +65,7 @@
     </form>
     </div>
 </main>
+@vite([       
+    'resources/js/user.js',  
+])
 @include('layouts.footer')
