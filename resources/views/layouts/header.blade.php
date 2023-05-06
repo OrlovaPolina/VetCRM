@@ -16,8 +16,7 @@
         'resources/css/app.css',   
         'resources/css/app.scss',   
         'resources/css/public.scss',  
-        'resources/js/app.js',        
-        'resources/js/user.js',       
+        'resources/js/app.js',          
         ])
         {{-- <script src="js/fullCalendar/index.global.js"></script> --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">

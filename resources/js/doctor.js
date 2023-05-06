@@ -11,19 +11,70 @@ $(document).ready(function () {
                 function(){
                 $( this ).remove();	// изменяем текстовое содержимое нашему блоку и указываем цвет текста
                 });
-        },1500)
+        },2000)
     }
 
+    if($('#current-schedule li').length > 0 ){
+        let events = $('#current-schedule li');
+        let events_arr = [];
+        events.each(function(){
+            let start_a = $(this).data('start');
+            let end_a = $(this).data('end');
+            let title = $(this).text();
+            let url = '/doctor/event/now?id=' + $(this).data('url');
+            events_arr.push({
+                title:title,
+                start:start_a,
+                end:end_a,
+                url:url
+            });
+        });
+        // console.log(events);
+        // console.log(events_arr);
+        var calendarEl = document.getElementById('calendar-curent-schedule');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'ru',
+            contentHeight:"auto",
+        headerToolbar: {
+            left: 'prev,next today',
+            center:'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        initialDate: new Date(),
+        eventClassNames: 'time-td',
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectMirror: true,
+        select: function(arg) {
+            // var title = prompt('Расписание:');
+            if (title) {
+            calendar.addEvent({
+                title: arg.title,
+                start: arg.start,
+                end: arg.end
+            })
+            }
+            calendar.unselect()
+        },
+        editable: false,
+        dayMaxEventRows: 6, // allow "more" link when too many events
+        events:events_arr
+        });
+        calendar.render();
+    }
+    
     $('#doctors-select').change(function () {
         let token = $('input[name="_token"]').val();
         let doctor = $(this).val();
         let schedule_work = [];
         $.ajax({
-            url:"/user/event/new/doctor",
+            url:"/doctor/event/new/doctor",
             method:"POST",
             cache:false,
             data:{_token:token,doctor:doctor},
             success:function(response){
+                console.log(response);
                 var schedule = Object.keys(response.doctor).map((key) => [key, response.doctor[key]]);
                 $.each(schedule, function (index,value) {
                     let val = Object.keys(value).map((key) => [key, value[key]]);
@@ -44,52 +95,28 @@ $(document).ready(function () {
                     
                   })
                 let option = "<option value=\"\" disabled selected hidden >Выберите Дату</option>";
-                $('select[name="doctors_date"]').empty().append(option);
+                $('select[name="reAdmission[doctors_date]"]').empty().append(option);
                     $.each(Reflect.ownKeys(schedule_work), function (ind,val) {
                         if(val !== 'length'){
                             console.log(ind);
                             let option = "<option value=\""+val+"\">"+val+"</option>";
-                            $('select[name="doctors_date"]').append(option);
+                            $('select[name="reAdmission[doctors_date]"]').append(option);
                         }                        
                     })
-                    $('select[name="doctors_date"]').change(function(){
+                    $('select[name="reAdmission[doctors_date]"]').change(function(){
                         let option = "<option value=\"\" disabled selected hidden >Выберите Время</option>";
-                        $('select[name="doctors_time"]').empty().append(option);
+                        $('select[name="reAdmission[doctors_time]"]').empty().append(option);
                         let cur_day = schedule_work[$(this).val()];
                         $.each(
                             cur_day,
                             function (ind, val) {
                                 let option = "<option value=\""+val.start+"\">"+ val.start + " - " + val.end +"</option>";
                                     console.log(option);
-                                $('select[name="doctors_time"]').append(option);
+                                $('select[name="reAdmission[doctors_time]"]').append(option);
                             }
                         );
                     })
             }
         })
     })
-
-    // $('.animal a.download').click(function(e){
-    //     e.preventDefault();
-    //     let token = $(this).parent().children('input[name="_token"]').val();
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },            
-    //         url:'/user/download',            
-    //         global: false,
-    //         type: 'POST',
-    //     });
-    //     let _id = $(this).parent().children('input[name="id"]').val();
-    //     $.ajax({
-    //         data:{id:_id,_token:token},
-    //         success:function(response){
-    //             const data = response;
-    //                 const link = document.createElement('a');
-    //                 link.setAttribute('href', data);
-    //                 link.setAttribute('download', 'yourfilename.pdf'); // Need to modify filename ...
-    //                 link.click();
-    //         }
-    //     });
-    // })
 })

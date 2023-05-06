@@ -66,7 +66,7 @@
                                     Личный кабинет
                             </x-dropdown-link>  
                             @elseif(intval(auth()->user()->role) == 1)
-                            <x-dropdown-link :href="route('doctor.events')">                           
+                            <x-dropdown-link :href="route('doctor.timeboard')">                           
                                 Личный кабинет
                             </x-dropdown-link>  
                             @endif

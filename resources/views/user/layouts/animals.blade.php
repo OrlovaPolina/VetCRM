@@ -6,4 +6,7 @@
         <a href="{{route('user.animalsCreatePage')}}">Добавить животное</a>
     </div>
 </main>
+@vite([       
+    'resources/js/user.js',  
+])
 @include('layouts.footer')

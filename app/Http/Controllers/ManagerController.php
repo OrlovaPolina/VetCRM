@@ -285,12 +285,5 @@ class ManagerController extends Controller
         }
         return redirect()->route('manager.doctorEdit',['id'=>$request->doctor,'success'=>true]);
         
-        // echo '<pre>' . print_r($request->hours, 1) . '</pre>';
-        // // echo '<pre>' . print_r($last_, 1) . '</pre>';
-        // echo '<pre>' . print_r($new_dates, 1) . '</pre>';
-        // echo '<pre>' . print_r($new_conf,1) . '</pre>';
-        // echo '<pre>' . json_encode($new_conf) . '</pre>';
-        // die();
-
     }
 }
