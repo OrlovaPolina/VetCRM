@@ -1,8 +1,8 @@
-<div class="animal-box container-fluid d-flex position-relative w-100 p-10">    
+<div class="animal-box container-fluid d-flex position-relative w-100 p-10">
     @if(isset($animals))
     @if(count($animals)>=0)
     @foreach ($animals as $animal)
-        <div class="animal container-fluid d-flex position-relative w-90 start-50 translate-middle-x">
+        <div class="animal container-fluid d-flex position-relative w-90 start-50 translate-middle-x">           
             <table>
                 <thead>
                     <tr>
@@ -39,21 +39,30 @@
                     </tr>
                     <tr>
                         @php
-                        if($events[$animal->id]){
+                        if(isset($events[$animal->id])){
                             $date = new DateTimeImmutable($events[$animal->id]);
                             $date = $date->format('Y-m-d H:i');
                         }
+                        else
+                        $date = 'Еще не было приёма';
                         @endphp
-                        <td>{{$events[$animal->id] ? $date  : '-'}}</td>
+                        <td>{{isset($events[$animal->id]) ? $date  : '-'}}</td>
                     </tr>
                     <tr>
-                        <td>{{$visits[$animal->id]  ? $visits[$animal->id] .' кг': '-'}}</td>
+                        <td>{{isset($visits[$animal->id])  ? $visits[$animal->id] .' кг': '-'}}</td>
                     </tr>
                     <tr>
                         <td>{{$animal->age}}</td>
                     </tr>
                     <tr>
-                        <td><a class="download" href="{{route('user.download')}}">Карточка животного</a></td>
+                        <td>
+                            <form action="{{route('user.download')}}" method="post">             
+                                @csrf               
+                                <input type="hidden" name="id" value="{{$animal->id}}">
+                                <a class="download" href="" onclick="event.preventDefault();
+                                    this.closest('form').submit();">Карточка животного</a>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>

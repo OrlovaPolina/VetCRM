@@ -44,7 +44,7 @@ $(document).ready(function () {
                     
                   })
                 let option = "<option value=\"\" disabled selected hidden >Выберите Дату</option>";
-                $('select[name="doctors_date"]').append(option);
+                $('select[name="doctors_date"]').empty().append(option);
                     $.each(Reflect.ownKeys(schedule_work), function (ind,val) {
                         if(val !== 'length'){
                             console.log(ind);
@@ -54,7 +54,7 @@ $(document).ready(function () {
                     })
                     $('select[name="doctors_date"]').change(function(){
                         let option = "<option value=\"\" disabled selected hidden >Выберите Время</option>";
-                        $('select[name="doctors_time"]').append(option);
+                        $('select[name="doctors_time"]').empty().append(option);
                         let cur_day = schedule_work[$(this).val()];
                         $.each(
                             cur_day,
@@ -68,4 +68,28 @@ $(document).ready(function () {
             }
         })
     })
+
+    // $('.animal a.download').click(function(e){
+    //     e.preventDefault();
+    //     let token = $(this).parent().children('input[name="_token"]').val();
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },            
+    //         url:'/user/download',            
+    //         global: false,
+    //         type: 'POST',
+    //     });
+    //     let _id = $(this).parent().children('input[name="id"]').val();
+    //     $.ajax({
+    //         data:{id:_id,_token:token},
+    //         success:function(response){
+    //             const data = response;
+    //                 const link = document.createElement('a');
+    //                 link.setAttribute('href', data);
+    //                 link.setAttribute('download', 'yourfilename.pdf'); // Need to modify filename ...
+    //                 link.click();
+    //         }
+    //     });
+    // })
 })

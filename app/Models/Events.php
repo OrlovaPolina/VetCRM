@@ -11,6 +11,7 @@ class Events extends Model
     protected $table = 'events';
     protected $fillable = ['id','title','start','end','created_at','updated_at','user_id','doctor_id','animal_id'];
     protected $fileds = ['id','title','start','end','created_at','updated_at','user_id','doctor_id','animal_id'];
+    protected  $primaryKey = 'id';
 
     public function user() {
         return $this->belongsTo(User::class);

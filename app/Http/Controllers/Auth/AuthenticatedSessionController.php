@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         elseif(Auth::user()->role == '0')
         return redirect()->intended('/user/animals');
         else 
-        return redirect()->intended('/doctor/events');
+        return redirect()->intended('/doctor/timeboard');
     }
 
     /**

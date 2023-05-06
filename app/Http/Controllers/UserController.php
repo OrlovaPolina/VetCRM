@@ -16,6 +16,10 @@ use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Adapter\PDFLib;
+use App\Http\Controllers\Config;
+use Illuminate\Support\Facades\App;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class UserController extends Controller
 {
@@ -60,10 +64,11 @@ class UserController extends Controller
                 Animals::create($params);
             }
             catch(Exception $e){
-                redirect('/user/animals?error=true');
+               return redirect()->route('user.animals',['error'=>true]);
             }
             finally{
-                redirect('/user/animals',301);
+                return redirect()->route('user.animals',['success'=>true]);
+                // redirect('/user/animals',301);
             }
         }
     }
@@ -95,23 +100,19 @@ class UserController extends Controller
     public function getDoctorsParameters(Request $request){
         $doctor_config = Config::get($request->doctor,'schedule_work');
         return response()->json(['doctor'=>json_decode($doctor_config->value,1)]);
-
     }
+
     public function createEvent(Request $request){
         $animals = $request->animals;
         $doctors = $request->doctors;
         $doctors_d = $request->doctors_date;
         $doctors_t = $request->doctors_time;
-        // echo '<pre>' . print_r($animals, 1) . '</pre>';
-        // echo '<pre>' . print_r($doctors, 1) . '</pre>';
-        // echo '<pre>' . print_r($doctors_d, 1) . '</pre>';
-        // echo '<pre>' . print_r($doctors_t, 1) . '</pre>';
-
         $title = 'Запись к ' . User::where('id',$doctors)->get()->first()->name;
         $config = Config::get($doctors,'schedule_work');
         $config = json_decode($config->value,1);
         $error = true;
         $endTime = '';
+        
         foreach($config[$doctors_d] as $key=>$day){            
             foreach($day as $k=>$start){
                 if($k=='start'){
@@ -146,28 +147,31 @@ class UserController extends Controller
                 ]);
             }
             catch(Exception $e){
-                // return redirect()->route('user.createEventPage',['error'=>true]);
-                echo '<pre>' . print_r($e->getMessage(), 1) . '</pre>';
+                return redirect()->route('user.createEventPage',['error'=>true]);
             }
             
         }
         else{
             return redirect()->route('user.createEventPage',['error'=>true]);
-            // echo '<pre>' . print_r($e->getMessage(), 1) . '</pre>';
         }
-
-        
-
-        // die();
-        // echo '<pre>error = ' . print_r($error, 1) . '</pre>';
-        // echo '<pre>error = ' . print_r($config[$doctors_d], 1) . '</pre>';
-        // echo '<pre>' . print_r($title, 1) . '</pre>';
-        // echo '<pre>' . print_r($config, 1) . '</pre>';
         
         return redirect()->route('user.createEventPage',['success'=>true]);
     }
 
-    public function download(){}
+    public function download(Request $request){
+        $animal = Animals::where('id',$request->id)->first();
+        $events = Events::where('animal_id', $animal->id)->get(); 
+        $visits = Visits::where('animal_id', $animal->id)->get(); 
+        view()->share('animal_name',$animal);
+        view()->share('events',$events);
+        view()->share('visits',$visits);
+        $data = ['title'=>'Записи','animal_name'=>$animal,'events'=>$events,'visits'=>$visits];
+
+        $pdf = PDF::loadView('user.layouts.animal-pdf', $data)
+        ->setOption('default_font', 'dejavu')
+        ->setOption('isHtml5ParserEnabled',true);
+        return $pdf->download($animal->id.'_'.date('Y_m_d').'.pdf');
+    }
 
     private function create($request){
         $arr = [];

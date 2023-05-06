@@ -93,10 +93,7 @@ Route::middleware('auth')->group(function () {
         /**
          * Путь до страницы с расписанием
          */
-        Route::get('/manager/timetable',
-        function(){
-            return view('manager.timetable');
-        })->middleware(['manager', 'verified'])->name('timetable');
+        Route::get('/manager/timetable',[ManagerController::class,'timeTable'])->middleware(['manager', 'verified'])->name('timetable');
         /**
          * Список новостей/акций (менеджер) 
          */
@@ -115,6 +112,8 @@ Route::middleware('auth')->group(function () {
          * Создание новостей/акций (менеджер) 
          */
         Route::post('/manager/news',[ManagerController::class,'createNewsAndStocks'])->middleware(['manager', 'verified'])->name('newsStocks');
+
+        Route::get('/manager/event/delete/{id}',[ManagerController::class,'deleteEvent'])->middleware(['manager', 'verified'])->name('deleteEvent');
         /** 
          * Форма изменений новостей/акций (менеджер) 
          */
@@ -169,7 +168,7 @@ Route::middleware('auth')->group(function () {
         /**
          * Создание карточки животного в pdf
          */
-        Route::get('/user/download', [UserController::class,'download'])->middleware(['user', 'verified'])->name('download');        
+        Route::post('/user/download', [UserController::class,'download'])->middleware(['user', 'verified'])->name('download');        
     });
     Route::name('doctor.')->group(function () {
         /**
@@ -179,7 +178,7 @@ Route::middleware('auth')->group(function () {
         /**
          * Просмотр всех своих записей
          */
-        Route::get('/doctor/timeboard', [DoctorController::class,'animalsPage'])->middleware(['doctor', 'verified'])->name('events');
+        Route::get('/doctor/timeboard', [DoctorController::class,'timeboard'])->middleware(['doctor', 'verified'])->name('timeboard');
         /**
          * Текущий приём
          */
@@ -187,7 +186,11 @@ Route::middleware('auth')->group(function () {
         /**
          * Создание новой записи для текущего приёма
          */
-        Route::post('/doctor/event/now', [DoctorController::class,'currentEvent'])->middleware(['doctor', 'verified'])->name('currentEvent');        
+        Route::post('/doctor/event/now', [DoctorController::class,'currentEvent'])->middleware(['doctor', 'verified'])->name('currentEvent');  
+        /**
+         * Получить данные о докторе
+         *  */      
+        Route::post('/doctor/event/new/doctor', [DoctorController::class,'getDoctorsParameters'])->middleware(['doctor', 'verified'])->name('getDoctorsParameters');     
     });
     
 });

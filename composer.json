@@ -22,9 +22,9 @@
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
-        "classmap":{
-            "libs\\vetcrm\\Helper\\Config":"libs/vetcrm/Helper/Config"
-        },
+        "classmap":[
+           "libs/vetcrm/Helper/Config"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",

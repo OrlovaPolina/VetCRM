@@ -69,4 +69,7 @@
     </div>
     @endauth
 </main>
+@vite([       
+    'resources/js/user.js',  
+])
 @include('layouts.footer')

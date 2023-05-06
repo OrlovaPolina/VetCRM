@@ -12,7 +12,7 @@
     "src": "public/src/Inter/static/Inter-Regular.ttf"
   },
   "resources/css/app.css": {
-    "file": "assets/app-b06c8f46.css",
+    "file": "assets/app-3bf55c05.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -26,8 +26,13 @@
     "isEntry": true,
     "src": "resources/css/manager.scss"
   },
+  "resources/css/pdf.scss": {
+    "file": "assets/pdf-50dfdbcb.css",
+    "isEntry": true,
+    "src": "resources/css/pdf.scss"
+  },
   "resources/css/public.scss": {
-    "file": "assets/public-ecad6df5.css",
+    "file": "assets/public-f451bffe.css",
     "isEntry": true,
     "src": "resources/css/public.scss"
   },
@@ -41,18 +46,23 @@
     "isEntry": true,
     "src": "resources/js/calendar.js"
   },
+  "resources/js/doctor.js": {
+    "file": "assets/doctor-cc12278e.js",
+    "isEntry": true,
+    "src": "resources/js/doctor.js"
+  },
   "resources/js/fullCalendar/index.global.js": {
     "file": "assets/index.global-f16e6e56.js",
     "isEntry": true,
     "src": "resources/js/fullCalendar/index.global.js"
   },
   "resources/js/manager.js": {
-    "file": "assets/manager-7519d22c.js",
+    "file": "assets/manager-bae318e7.js",
     "isEntry": true,
     "src": "resources/js/manager.js"
   },
   "resources/js/user.js": {
-    "file": "assets/user-4bab4ee7.js",
+    "file": "assets/user-8c2685e3.js",
     "isEntry": true,
     "src": "resources/js/user.js"
   }

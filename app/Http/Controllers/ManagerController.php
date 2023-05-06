@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Config;
 use App\Models\DoctorConfig;
+use App\Models\Events;
 use Carbon\Carbon;
 
 class ManagerController extends Controller
@@ -239,10 +240,13 @@ class ManagerController extends Controller
         $last_ = "";
         $interval = $request->hours;
         $week = $request->week;
+        if(count($last)>=1)
         foreach($last as $k=>$l){
             $last_ = new Carbon(new DateTime($k));
             break;
         }
+        else
+        $last_ = new Carbon();
         $ll = $last_;
         $new_dates = [];
         $next = "";
@@ -282,12 +286,23 @@ class ManagerController extends Controller
         }
         return redirect()->route('manager.doctorEdit',['id'=>$request->doctor,'success'=>true]);
         
-        // echo '<pre>' . print_r($request->hours, 1) . '</pre>';
-        // // echo '<pre>' . print_r($last_, 1) . '</pre>';
-        // echo '<pre>' . print_r($new_dates, 1) . '</pre>';
-        // echo '<pre>' . print_r($new_conf,1) . '</pre>';
-        // echo '<pre>' . json_encode($new_conf) . '</pre>';
-        // die();
+    }
 
+    public function timeTable(){
+        $events = Events::all();
+        return view('manager.timetable')->with(['title'=>'Расписание','events'=>$events]);
+    }
+
+    public function deleteEvent($id){
+        $params = ['title'=>'Расписание'];
+        try{
+            $event = Events::where('id',$id)->get()->first();
+            $event->delete();
+            $params['success'] = true;
+        }
+        catch(Exception $e){
+            $params['error'] = $e->getMessage();
+        }
+        return redirect()->route('manager.timetable',$params);
     }
 }

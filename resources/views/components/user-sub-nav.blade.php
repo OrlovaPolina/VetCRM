@@ -20,8 +20,8 @@
             </li>
         @elseif(Auth::user()->role == 1)
         <li class="nav-item">
-            <a class="nav-link  @if(Route::currentRouteName() == 'doctor.events')  active @endif"
-            @if(Route::currentRouteName() == 'doctor.events') 
+            <a class="nav-link  @if(Route::currentRouteName() == 'doctor.timeboard')  active @endif"
+            @if(Route::currentRouteName() == 'doctor.timeboard') 
             aria-current="page"
             @endif
                 href="/doctor/timeboard">Расписание</a>
