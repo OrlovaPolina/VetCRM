@@ -61,10 +61,13 @@ $(document).ready(function(){
     events.each(function(){
         let start_a = $(this).data('start');
         let end_a = $(this).data('end');
+        let title_a = $(this).data('title');
+        let url_a = '/manager/event/delete/' + $(this).data('url');
         events_arr.push({
-            title:start_a,
+            title:title_a,
             start:start_a,
-            end:end_a
+            end:end_a,
+            url:url_a
         });
     });
     var calendarEl = document.getElementById('calendar-curent-schedule');
@@ -95,7 +98,8 @@ $(document).ready(function(){
       },
       editable: true,
       dayMaxEventRows: 6, // allow "more" link when too many events
-      events:events_arr
+      events:events_arr,
+
     });
     calendar.render();
     

@@ -93,10 +93,7 @@ Route::middleware('auth')->group(function () {
         /**
          * Путь до страницы с расписанием
          */
-        Route::get('/manager/timetable',
-        function(){
-            return view('manager.timetable');
-        })->middleware(['manager', 'verified'])->name('timetable');
+        Route::get('/manager/timetable',[ManagerController::class,'timeTable'])->middleware(['manager', 'verified'])->name('timetable');
         /**
          * Список новостей/акций (менеджер) 
          */
@@ -115,6 +112,8 @@ Route::middleware('auth')->group(function () {
          * Создание новостей/акций (менеджер) 
          */
         Route::post('/manager/news',[ManagerController::class,'createNewsAndStocks'])->middleware(['manager', 'verified'])->name('newsStocks');
+
+        Route::get('/manager/event/delete/{id}',[ManagerController::class,'deleteEvent'])->middleware(['manager', 'verified'])->name('deleteEvent');
         /** 
          * Форма изменений новостей/акций (менеджер) 
          */
