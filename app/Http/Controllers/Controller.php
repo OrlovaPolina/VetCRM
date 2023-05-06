@@ -29,14 +29,14 @@ class Controller extends BaseController
         foreach($content as $item){            
             $item->images_urls = json_decode($item->images_urls); 
         }
-        return view('newsStocks')->with(['title'=>'Новости','content'=>$content,'type'=>'news']);
+        return view('newsStocks')->with(['title'=>'Новости','content'=>$content,'type'=>'news','user_sub' => true]);
     }
     public function stocks(){
         $content = Stocks::paginate(18);
         foreach($content as $item){            
             $item->images_urls = json_decode($item->images_urls); 
         }
-        return view('newsStocks')->with(['title'=>'Акции','content'=>$content,'type'=>'stocks']);
+        return view('newsStocks')->with(['title'=>'Акции','content'=>$content,'type'=>'stocks','user_sub' => true]);
     }
     public function detail($type,$id){
         try{
@@ -46,7 +46,7 @@ class Controller extends BaseController
                 return redirect($type);
             }
             else{
-                return view('ns-detail')->with(['content'=>$content,'title'=>self::TYPE_CONTENT[$type]]);
+                return view('ns-detail')->with(['content'=>$content,'title'=>self::TYPE_CONTENT[$type],'user_sub' => true]);
             }
         }
         catch(Exception $e){}
