@@ -2,6 +2,7 @@
     @if(!empty($content))
     @php($count = 0)
         @foreach($content as $item)
+        @if(isset($item->images_urls))
             @if($count % 3 == 0 && $count != 0)            
             </div>
             <div class="row">
@@ -27,6 +28,7 @@
                 </div>
             @endif
             @php($count++)
+            @endif
         @endforeach
     @endif
 </div>

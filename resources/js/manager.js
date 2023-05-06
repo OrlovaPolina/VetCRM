@@ -83,6 +83,9 @@ $(document).ready(function(){
         }
        
     });
+    if(window.location.pathname.indexOf('manager/doctor') != -1 && window.location.pathname.indexOf('/manager/timetable') != -1){
+
+    
     var calendarEl = document.getElementById('calendar-curent-schedule');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -125,7 +128,7 @@ $(document).ready(function(){
 
     });
     calendar.render();
-    
+    }
     // $('.create-schedule').click(function () {
     //     $('.create-schedule-form').toggleClass('d-none').toggleClass('d-flex')
     //   })

@@ -176,6 +176,7 @@ class ManagerController extends Controller
             }
         }  
         catch(Exception $e){
+            echo '<pre>' . print_r($e, 1) . '</pre>';die();
             return redirect('manager/'.self::TYPE_CONTENT[$type].'/edit/'.$fields['id'].'?error=true');
         } 
 
@@ -202,14 +203,16 @@ class ManagerController extends Controller
     private function removeImages($type,$id,$newImg){
         $content = self::TYPE_CLASS[$type]::withTrashed()->where('id',$id)->get()->first();
         $content->images_urls = json_decode($content->images_urls);
-        foreach($content->images_urls as $img){
-            $name = preg_split('/\//',$img);
-            $name = $name[count($name) - 1];
-            if(is_file($img)){
-                if(!in_array($img,$newImg))
-                unlink(storage_path('app/public/uploads/news/'.$name));   
+        if($content->images_urls !== null || !empty($content->images_urls))
+            foreach($content->images_urls as $img){
+                $name = preg_split('/\//',$img);
+                $name = $name[count($name) - 1];
+                if(is_file($img)){
+                    if($newImg !== null)
+                    if(!in_array($img,$newImg))
+                    unlink(storage_path('app/public/uploads/news/'.$name));   
+                }
             }
-        }
     }
 
     public function deleteNewsStocks($type,$id){
