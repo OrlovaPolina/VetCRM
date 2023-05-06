@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\UserRoleManager;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
+use App\Models\News;
+use App\Models\Stocks;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
@@ -20,7 +22,15 @@ use Illuminate\Support\Facades\URL;
 
 
 Route::get('/', function () {
-    return view('index')->with(['title'=>'Главная']);
+    $content = News::all()->take(5);
+    foreach($content as $item){            
+        $item->images_urls = json_decode($item->images_urls); 
+    }
+    $stocks = Stocks::all()->take(4);
+    foreach($stocks as $item){            
+        $item->images_urls = json_decode($item->images_urls); 
+    }
+    return view('index')->with(['title'=>'Главная','content'=>$content,'type'=>'news','stocks'=>$stocks,'user_sub' => true]);
 })->name('home');
 
 Route::middleware('auth')->group(function () {

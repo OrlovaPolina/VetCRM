@@ -30,4 +30,6 @@
         @endforeach
     @endif
 </div>
+@if($content instanceof \Illuminate\Pagination\LengthAwarePaginator )
 {{ $content->links() }}
+@endif
