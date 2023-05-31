@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+                
     Route::name('manager.')->group(function () {
         /**
          * Личный кабинет менеджера с пользователями
