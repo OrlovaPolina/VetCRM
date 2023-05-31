@@ -15,11 +15,7 @@
                     Акции
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{route('about')}}" class="nav-link">
-                    О нас
-                </a>
-            </li>
+          
         </ul>
     </div>
 </footer>

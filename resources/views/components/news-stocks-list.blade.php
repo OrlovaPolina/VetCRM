@@ -6,7 +6,7 @@
             @if($count % 3 == 0 && $count != 0)            
             </div>
             <div class="row">
-            @elseif($count % 3 == 0 && $count == 0)
+            @elseif($count % 3 == 0 || $count == 0)
             <div class="row">
             @endif
                 <a href="{{route('NSdetail',['type'=>$type,'id'=>$item->id])}}" class="col">

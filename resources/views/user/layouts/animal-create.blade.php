@@ -13,7 +13,7 @@
     </div>  
     <div class="input-group mb-3">
         <span class="input-group-text" id="breed">Порода</span>
-        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." name="breed">
+        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
         <datalist id="datalistOptions">
             {{-- <option value="San Francisco">
             <option value="New York">
@@ -24,6 +24,7 @@
                 <option value="{{$b->id}}">{{$b->name}}</option>
             @endforeach   
           </datalist>
+          <input type="hidden" name = "breed">
         {{-- <select class="form-select form-select-lg mb-3"
         aria-label=".form-select-lg example"        
         placeholder="Порода"

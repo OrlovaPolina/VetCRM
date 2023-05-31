@@ -25,14 +25,14 @@ class Controller extends BaseController
     ];
 
     public function news(){
-        $content = News::paginate(18);
+        $content = News::paginate(3);
         foreach($content as $item){            
             $item->images_urls = json_decode($item->images_urls); 
         }
         return view('newsStocks')->with(['title'=>'Новости','content'=>$content,'type'=>'news','user_sub' => true]);
     }
     public function stocks(){
-        $content = Stocks::paginate(18);
+        $content = Stocks::paginate(3);
         foreach($content as $item){            
             $item->images_urls = json_decode($item->images_urls); 
         }

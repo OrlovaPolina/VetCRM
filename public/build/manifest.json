@@ -32,7 +32,7 @@
     "src": "resources/css/pdf.scss"
   },
   "resources/css/public.scss": {
-    "file": "assets/public-f451bffe.css",
+    "file": "assets/public-747dd82f.css",
     "isEntry": true,
     "src": "resources/css/public.scss"
   },
@@ -62,7 +62,7 @@
     "src": "resources/js/manager.js"
   },
   "resources/js/user.js": {
-    "file": "assets/user-8c2685e3.js",
+    "file": "assets/user-2d36f89c.js",
     "isEntry": true,
     "src": "resources/js/user.js"
   }

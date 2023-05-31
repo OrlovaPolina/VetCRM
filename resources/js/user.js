@@ -14,6 +14,17 @@ $(document).ready(function () {
         },1500)
     }
 
+    $(document).on('change', '#exampleDataList', function() {
+        var options = $('datalist')[0].options;
+        var val = $(this).val();
+        for (var i = 0; i < options.length; i++) {
+          if (options[i].value === val) {
+            $('input[name="breed"]').val(val);
+            $('input#exampleDataList').val(options[i].text);
+            break;
+          }
+        }
+      });
     $('#doctors-select').change(function () {
         let token = $('input[name="_token"]').val();
         let doctor = $(this).val();
